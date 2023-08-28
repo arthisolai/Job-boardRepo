@@ -10,8 +10,13 @@ export default function PayParityCalculator() {
   useEffect(() => {
     async function fetchData() {
       try {
+        console.log("Fetching data from /api/parity...");
         const response = await fetch("/api/parity");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
+        console.log("Data fetched successfully:", data);
         setPayParityData(data);
       } catch (error) {
         console.error("Failed to fetch pay parity data:", error);
@@ -28,7 +33,7 @@ export default function PayParityCalculator() {
     const targetParity = payParityData.find(
       (item) => item.CountryCode === targetCountry
     );
-
+    console.log("Current payParityData state:", payParityData);
     if (!sourceParity || !targetParity) return;
 
     // Extract years from the keys and filter out non-numeric keys
@@ -61,6 +66,7 @@ export default function PayParityCalculator() {
     const conversionRate = targetParityValue / sourceParityValue;
     setConvertedSalary(sourceSalary * conversionRate);
   }
+  console.log("Current payParityData state:", payParityData);
 
   return (
     <div>

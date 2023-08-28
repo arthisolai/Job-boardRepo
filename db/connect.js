@@ -44,4 +44,7 @@ async function dbConnect() {
   return cached.conn;
 }
 
+const connection = await dbConnect();
+console.log("Database connection status:", connection.connection.readyState);
+
 export default dbConnect;
