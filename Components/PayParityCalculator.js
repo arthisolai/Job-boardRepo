@@ -10,13 +10,13 @@ export default function PayParityCalculator() {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log("Fetching data from /api/parity...");
+        // console.log("Fetching data from /api/parity...");
         const response = await fetch("/api/parity");
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Data fetched successfully:", data);
+        // console.log("Data fetched successfully:", data);
         setPayParityData(data);
       } catch (error) {
         console.error("Failed to fetch pay parity data:", error);
@@ -27,7 +27,7 @@ export default function PayParityCalculator() {
   }, []);
 
   function calculateConvertedSalary() {
-    console.log("calculateConvertedSalary called");
+    // console.log("calculateConvertedSalary called");
 
     const sourceParity = payParityData.find(
       (item) => item.CountryCode === sourceCountry
@@ -36,11 +36,11 @@ export default function PayParityCalculator() {
       (item) => item.CountryCode === targetCountry
     );
 
-    console.log("Source Country:", sourceCountry);
-    console.log("Target Country:", targetCountry);
-    console.log("Source Salary:", sourceSalary);
-    console.log("Source Parity Data:", sourceParity);
-    console.log("Target Parity Data:", targetParity);
+    // console.log("Source Country:", sourceCountry);
+    // console.log("Target Country:", targetCountry);
+    // console.log("Source Salary:", sourceSalary);
+    // console.log("Source Parity Data:", sourceParity);
+    // console.log("Target Parity Data:", targetParity);
 
     if (!sourceParity || !targetParity) return;
 
@@ -52,8 +52,8 @@ export default function PayParityCalculator() {
       .filter((key) => !isNaN(Number(key)))
       .map(Number);
 
-    console.log("Years in Source Data:", yearsSource);
-    console.log("Years in Target Data:", yearsTarget);
+    // console.log("Years in Source Data:", yearsSource);
+    // console.log("Years in Target Data:", yearsTarget);
 
     // Find the maximum year that exists in both data sets
     const commonYears = yearsSource.filter((year) =>
@@ -61,8 +61,8 @@ export default function PayParityCalculator() {
     );
     const latestYear = Math.max(...commonYears);
 
-    console.log("Common Years:", commonYears);
-    console.log("Latest Year:", latestYear);
+    // console.log("Common Years:", commonYears);
+    // console.log("Latest Year:", latestYear);
 
     if (!latestYear) {
       console.error("No common year found in the data");
@@ -72,8 +72,8 @@ export default function PayParityCalculator() {
     const sourceParityValue = sourceParity[latestYear];
     const targetParityValue = targetParity[latestYear];
 
-    console.log("Source Parity Value for latest year:", sourceParityValue);
-    console.log("Target Parity Value for latest year:", targetParityValue);
+    // console.log("Source Parity Value for latest year:", sourceParityValue);
+    // console.log("Target Parity Value for latest year:", targetParityValue);
 
     if (!sourceParityValue || !targetParityValue) {
       console.error(`Data not available for the year ${latestYear}`);
@@ -81,10 +81,10 @@ export default function PayParityCalculator() {
     }
 
     const conversionRate = targetParityValue / sourceParityValue;
-    console.log("Conversion Rate:", conversionRate);
+    // console.log("Conversion Rate:", conversionRate);
 
     setConvertedSalary(sourceSalary * conversionRate);
-    console.log("Converted Salary:", sourceSalary * conversionRate);
+    // console.log("Converted Salary:", sourceSalary * conversionRate);
   }
 
   return (
