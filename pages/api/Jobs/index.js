@@ -3,12 +3,10 @@ import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
   await dbConnect();
-  console.log("Database connected");
 
   if (request.method === "GET") {
     try {
       const jobs = await JobInfo.find();
-      console.log("Jobs fetched:", jobs);
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });
       }
