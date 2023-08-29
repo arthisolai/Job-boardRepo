@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { ListItem, List } from "next/components";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -18,6 +19,16 @@ export default function JobDetail() {
       <p>{job.company}</p>
       <p>{job.location}</p>
       <p>{job.jobType}</p>
+      <List>
+        {job.responsibilities.map((responsibility, index) => (
+          <ListItem key={index}>{responsibility}</ListItem>
+        ))}
+      </List>
+      <List>
+        {job.qualifications.map((qualification, index) => (
+          <ListItem key={index}>{qualification}</ListItem>
+        ))}
+      </List>
     </div>
   );
 }
