@@ -6,19 +6,19 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function JobBoard() {
   const [country, setCountry] = useState("");
-  const [company, setCompany] = useState("");
+  const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
 
   const { data: jobs, error } = useSWR(
-    `/api/Jobs?country=${country}&company=${company}&title=${title}`,
+    `/api/Jobs?country=${country}&department=${department}&title=${title}`,
     fetcher
   );
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
-  useEffect(() => {}, [country, company, title]);
+  useEffect(() => {}, [country, department, title]);
   const resetFilters = () => {
     setCountry("");
-    setCompany("");
+    setDepartment("");
     setTitle("");
   };
 
@@ -44,13 +44,16 @@ export default function JobBoard() {
         ))}
       </select>
 
-      <select value={company} onChange={(e) => setCompany(e.target.value)}>
+      <select
+        value={department}
+        onChange={(e) => setDepartment(e.target.value)}
+      >
         <option value="" disabled>
-          Select Company
+          Select Department
         </option>
-        {filters.companies.map((company) => (
-          <option key={company} value={company}>
-            {company}
+        {filters.departments.map((department) => (
+          <option key={department} value={department}>
+            {department}
           </option>
         ))}
       </select>
