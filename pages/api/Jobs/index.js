@@ -7,11 +7,11 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const { country, company, title } = request.query;
+      const { country, department, title } = request.query;
 
       const filter = {};
       if (country) filter["location"] = country;
-      if (company) filter["company"] = company;
+      if (department) filter["department"] = department;
       if (title) filter["position"] = title;
 
       const jobs = await JobInfo.find(filter);

@@ -7,12 +7,12 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const uniqueCountries = await JobInfo.distinct("location");
-      const uniqueCompanies = await JobInfo.distinct("company");
+      const uniqueDepartments = await JobInfo.distinct("department");
       const uniqueTitles = await JobInfo.distinct("position");
 
       res.status(200).json({
         countries: uniqueCountries,
-        companies: uniqueCompanies,
+        departments: uniqueDepartments,
         titles: uniqueTitles,
       });
     } catch (error) {
