@@ -7,8 +7,16 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const jobs = await JobInfo.find();
+      const { country, company, title } = request.query;
+
+      const filter = {};
+      if (country) filter["location"] = country;
+      if (company) filter["company"] = company;
+      if (title) filter["position"] = title;
+
+      const jobs = await JobInfo.find(filter);
       console.log("Jobs fetched:", jobs);
+
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });
       }
