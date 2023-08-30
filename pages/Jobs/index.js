@@ -16,6 +16,11 @@ export default function JobBoard() {
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
   useEffect(() => {}, [country, company, title]);
+  const resetFilters = () => {
+    setCountry("");
+    setCompany("");
+    setTitle("");
+  };
 
   if (error) {
     console.error("SWR error:", error);
@@ -32,9 +37,9 @@ export default function JobBoard() {
         <option value="" disabled>
           Select Country
         </option>
-        {filters.countries.map((c) => (
-          <option key={c} value={c}>
-            {c}
+        {filters.countries.map((country) => (
+          <option key={country} value={country}>
+            {country}
           </option>
         ))}
       </select>
@@ -43,9 +48,9 @@ export default function JobBoard() {
         <option value="" disabled>
           Select Company
         </option>
-        {filters.companies.map((c) => (
-          <option key={c} value={c}>
-            {c}
+        {filters.companies.map((company) => (
+          <option key={company} value={company}>
+            {company}
           </option>
         ))}
       </select>
@@ -54,13 +59,13 @@ export default function JobBoard() {
         <option value="" disabled>
           Select Title
         </option>
-        {filters.titles.map((t) => (
-          <option key={t} value={t}>
-            {t}
+        {filters.titles.map((title) => (
+          <option key={title} value={title}>
+            {title}
           </option>
         ))}
       </select>
-
+      <button onClick={resetFilters}>Reset Filters</button>
       {Array.isArray(jobs) ? (
         jobs.map((job) => (
           <div key={job._id}>
