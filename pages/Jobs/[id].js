@@ -1,5 +1,10 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import styled from "styled-components";
+
+const ContentContainer = styled.div`
+  margin-top: 80px;
+`;
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -13,7 +18,7 @@ export default function JobDetail() {
   if (!job) return <div>Loading...</div>;
 
   return (
-    <div>
+    <ContentContainer>
       <h1>{job.position}</h1>
       <h3>Company</h3>
       <p>{job.company}</p>
@@ -33,6 +38,6 @@ export default function JobDetail() {
           <li key={index}>{qualification}</li>
         ))}
       </ul>
-    </div>
+    </ContentContainer>
   );
 }
