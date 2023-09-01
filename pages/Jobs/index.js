@@ -1,6 +1,11 @@
 import Link from "next/link";
 import useSWR from "swr";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const ContentContainer = styled.div`
+  margin-top: 80px;
+`;
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -32,7 +37,7 @@ export default function JobBoard() {
   }
 
   return (
-    <div>
+    <ContentContainer>
       <select value={country} onChange={(e) => setCountry(e.target.value)}>
         <option value="" disabled>
           Select Country
@@ -83,6 +88,6 @@ export default function JobBoard() {
       ) : (
         <div>No jobs match the current filters.</div>
       )}
-    </div>
+    </ContentContainer>
   );
 }
