@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function TaxCalculator() {
+export default function GermanTaxCalculator() {
   const [income, setIncome] = useState(0);
   const [taxClass, setTaxClass] = useState("1");
   const [annualNet, setAnnualNet] = useState(0);
