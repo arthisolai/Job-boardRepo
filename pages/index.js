@@ -1,4 +1,5 @@
 import PayParityCalculator from "@/Components/PayParityCalculator";
+import TaxCalculator from "@/utils/salaryCalculatorsGermany";
 import useSWR from "swr";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
   return (
     <>
       <PayParityCalculator />
+      <TaxCalculator />
     </>
   );
 }
