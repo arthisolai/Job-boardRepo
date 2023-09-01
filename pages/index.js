@@ -2,7 +2,7 @@ import PayParityCalculator from "@/Components/PayParityCalculator";
 import useSWR from "swr";
 import styled from "styled-components";
 import NetherlandsTaxCalculator from "@/utils/NetherlandsTaxCalculator";
-import GermanTaxCalculator from "@/utils/salaryCalculatorsGermany";
+import GermanTaxCalculator from "@/utils/GermanyTaxCalculator";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
