@@ -3,6 +3,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import NetherlandsTaxCalculator from "@/utils/NetherlandsTaxCalculator";
 import GermanTaxCalculator from "@/utils/GermanyTaxCalculator";
+import SpainTaxCalculator from "@/utils/SpainTaxCalculator";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -17,6 +18,7 @@ export default function Home() {
         <PayParityCalculator />
         <GermanTaxCalculator />
         <NetherlandsTaxCalculator />
+        <SpainTaxCalculator />
       </ContentContainer>
     </>
   );
