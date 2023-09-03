@@ -79,11 +79,17 @@ export default function Header() {
             <Link href="/Jobs">Jobs</Link>
           </StyledLi>
           <StyledLi>
-            <Link href="/Contact">Contact</Link>
+            <Link href="/Country">Country</Link>
           </StyledLi>
-          <li>
-            <Link href="/FAQ">FAQ</Link>
-          </li>
+          <StyledLi>
+            <Link href="/Calculators">Calculator</Link>
+          </StyledLi>
+          <StyledLi>
+            <Link href="/Resources">Resources</Link>
+          </StyledLi>
+          <StyledLi>
+            <button>Add Company</button>
+          </StyledLi>
         </StyledUl>
       </nav>
     </StyledHeader>
