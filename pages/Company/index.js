@@ -26,7 +26,9 @@ export default function Company() {
     <ContentContainer>
       {companies.map((company, index) => (
         <div key={index}>
-          <h1>{company.companyName}</h1>
+          <Link href={`/Company/${company._id}`}>
+            <h1>{company.companyName}</h1>
+          </Link>
           <a href={company.companyURL}>Company Website</a>
           <br />
           <p>Country: {company.country}</p>
