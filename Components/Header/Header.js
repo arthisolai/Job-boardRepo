@@ -79,7 +79,7 @@ export default function Header() {
             <Link href="/Jobs">Jobs</Link>
           </StyledLi>
           <StyledLi>
-            <Link href="/Country">Country</Link>
+            <Link href="/Company">Company</Link>
           </StyledLi>
           <StyledLi>
             <Link href="/Calculators">Calculator</Link>
