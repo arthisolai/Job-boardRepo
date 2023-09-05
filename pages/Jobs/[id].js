@@ -19,25 +19,49 @@ export default function JobDetail() {
 
   return (
     <ContentContainer>
-      <h1>{job.position}</h1>
+      <h1>{job.Position}</h1>
       <h3>Company</h3>
-      <p>{job.company}</p>
+      <p>{job.Company}</p>
       <h3>Location</h3>
-      <p>{job.location}</p>
-      <h3>Job Type</h3>
-      <p>{job.jobType}</p>
-      <h3>Responsibilities</h3>
-      <ul>
-        {job.responsibilities.map((responsibility, index) => (
-          <li key={index}>{responsibility}</li>
-        ))}
-      </ul>
-      <h3>Qualifications</h3>
-      <ul>
-        {job.qualifications.map((qualification, index) => (
-          <li key={index}>{qualification}</li>
-        ))}
-      </ul>
+      <p>{job.Location}</p>
+      {/* <h3>Job Type</h3>
+      <p>{job.jobType}</p> */}
+      <div>
+        <h3>{job.Description.Title}</h3>
+        <p>{job.Description.Text}</p>
+
+        <h3>{job.Responsibility.Title}</h3>
+        <ul>
+          {job.Responsibility.Text.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+
+        <h3>{job.Qualification.Title}</h3>
+        <ul>
+          {job.Qualification.Text.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+        {job?.NiceToHave?.Title && <h3>{job.NiceToHave.Title}</h3>}
+        {job?.NiceToHave?.Text && (
+          <ul>
+            {job.NiceToHave.Text.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        )}
+
+        {job?.PerksAndBenefits?.Title && <h3>{job.PerksAndBenefits.Title}</h3>}
+
+        {job?.PerksAndBenefits?.Text && (
+          <ul>
+            {job.PerksAndBenefits.Text.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </ContentContainer>
   );
 }
