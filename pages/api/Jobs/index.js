@@ -1,4 +1,4 @@
-import JobInfo from "@/db/JobInfo";
+import JobInfoAllCompanies from "@/db/JobInfoAllCompanies";
 import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
@@ -17,7 +17,7 @@ export default async function handler(request, response) {
       if (title) filter["position"] = title;
       if (query) filter["company"] = new RegExp(query, "i");
 
-      const jobs = await JobInfo.find(filter);
+      const jobs = await JobInfoAllCompanies.find(filter);
       console.log("Jobs fetched:", jobs);
 
       if (!jobs || jobs.length === 0) {

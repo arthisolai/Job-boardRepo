@@ -1,14 +1,17 @@
 import dbConnect from "@/db/connect";
-import JobInfo from "@/db/JobInfo";
+import JobInfoAllCompanies from "@/db/JobInfoAllCompanies";
+import JobInfo from "@/db/JobInfoAllCompanies";
 
 export default async function handler(request, response) {
   await dbConnect();
 
   if (request.method === "GET") {
     try {
-      const uniqueCountries = await JobInfo.distinct("location");
-      const uniqueDepartments = await JobInfo.distinct("department");
-      const uniqueTitles = await JobInfo.distinct("position");
+      const uniqueCountries = await JobInfoAllCompanies.distinct("location");
+      const uniqueDepartments = await JobInfoAllCompanies.distinct(
+        "department"
+      );
+      const uniqueTitles = await JobInfoAllCompanies.distinct("position");
 
       response.status(200).json({
         countries: uniqueCountries,
