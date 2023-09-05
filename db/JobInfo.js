@@ -11,6 +11,13 @@ const jobInfoSchema = new Schema({
   responsibilities: { type: [String], required: true },
   qualifications: { type: [String], required: true },
 });
+jobInfoSchema.index({
+  company: "text",
+  department: "text",
+  position: "text",
+  location: "text",
+  jobType: "text",
+});
 
 const JobInfo =
   mongoose.models.JobInfo ||
