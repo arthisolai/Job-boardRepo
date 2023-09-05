@@ -17,8 +17,20 @@ export default async function handler(request, response) {
       if (country) filter["Location"] = country;
       if (department) filter["Department"] = department;
       if (title) filter["Position"] = title;
-      if (query) filter["Company"] = new RegExp(query, "i");
+      if (query) {
+        filter["$or"] = [
+          { Company: new RegExp(query, "i") },
+          { Location: new RegExp(query, "i") },
+          { Department: new RegExp(query, "i") },
+          { Position: new RegExp(query, "i") },
+        ];
+      }
       console.log("MongoDB filter:", filter);
+
+      const testResults = await JobInfoAllCompanies.find({
+        Location: "Hamburg",
+      });
+      console.log("Test Results:", testResults);
 
       const jobs = await JobInfoAllCompanies.find(filter);
       // console.log("Jobs fetched:", jobs);
