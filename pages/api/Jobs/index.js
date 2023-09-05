@@ -9,16 +9,19 @@ export default async function handler(request, response) {
     try {
       const { country, department, title, query } = request.query;
 
+      console.log("Received Query Parameters:", request.query);
+
       console.log("Received Query Parameter:", query);
 
       const filter = {};
-      if (country) filter["location"] = country;
-      if (department) filter["department"] = department;
-      if (title) filter["position"] = title;
-      if (query) filter["company"] = new RegExp(query, "i");
+      if (country) filter["Location"] = country;
+      if (department) filter["Department"] = department;
+      if (title) filter["Position"] = title;
+      if (query) filter["Company"] = new RegExp(query, "i");
+      console.log("MongoDB filter:", filter);
 
       const jobs = await JobInfoAllCompanies.find(filter);
-      console.log("Jobs fetched:", jobs);
+      // console.log("Jobs fetched:", jobs);
 
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });

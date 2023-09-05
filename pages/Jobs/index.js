@@ -18,9 +18,9 @@ export default function JobBoard({ searchQuery }) {
 
   // Create the query string based on the current state values
   const queryString = [
-    country && `country=${country}`,
-    department && `department=${department}`,
-    title && `title=${title}`,
+    country && `Location=${country}`,
+    department && `Department=${department}`,
+    title && `Position=${title}`,
     searchQuery && `query=${searchQuery}`,
   ]
     .filter(Boolean)
@@ -28,6 +28,8 @@ export default function JobBoard({ searchQuery }) {
 
   // Fetch data using the dynamically created query string
   const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
+
+  console.log(`Sending request to /api/Jobs?${queryString}`);
 
   // const { data: jobs, error } = useSWR(
   //   `/api/Jobs?country=${country}&department=${department}&title=${title}&query=${searchQuery}`,
