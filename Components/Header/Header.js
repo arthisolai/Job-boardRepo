@@ -59,7 +59,13 @@ const StyledLink = styled.div`
   }
 `;
 
-export default function Header() {
+export default function Header({ onSearch }) {
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    console.log("Search Query:", query);
+    onSearch(query);
+  };
+
   return (
     <StyledHeader>
       <div className="logo">
@@ -68,6 +74,13 @@ export default function Header() {
           alt="Site Logo"
           width={50}
           height={50}
+        />
+      </div>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search for your next job..."
+          onChange={handleSearch}
         />
       </div>
       <nav>

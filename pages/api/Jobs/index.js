@@ -7,12 +7,15 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const { country, department, title } = request.query;
+      const { country, department, title, query } = request.query;
+
+      console.log("Received Query Parameter:", query);
 
       const filter = {};
       if (country) filter["location"] = country;
       if (department) filter["department"] = department;
       if (title) filter["position"] = title;
+      if (query) filter["company"] = new RegExp(query, "i");
 
       const jobs = await JobInfo.find(filter);
       console.log("Jobs fetched:", jobs);

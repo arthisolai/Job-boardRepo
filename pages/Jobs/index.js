@@ -9,18 +9,33 @@ const ContentContainer = styled.div`
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
-export default function JobBoard() {
+export default function JobBoard({ searchQuery }) {
   const [country, setCountry] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
 
-  const { data: jobs, error } = useSWR(
-    `/api/Jobs?country=${country}&department=${department}&title=${title}`,
-    fetcher
-  );
+  console.log("Received Search Query:", searchQuery);
+
+  // Create the query string based on the current state values
+  const queryString = [
+    country && `country=${country}`,
+    department && `department=${department}`,
+    title && `title=${title}`,
+    searchQuery && `query=${searchQuery}`,
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  // Fetch data using the dynamically created query string
+  const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
+
+  // const { data: jobs, error } = useSWR(
+  //   `/api/Jobs?country=${country}&department=${department}&title=${title}&query=${searchQuery}`,
+  //   fetcher
+  // );
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
-  useEffect(() => {}, [country, department, title]);
+  useEffect(() => {}, [country, department, title, searchQuery]);
   const resetFilters = () => {
     setCountry("");
     setDepartment("");

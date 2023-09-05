@@ -13,6 +13,13 @@ const companySchema = new Schema({
   foundedIn: { type: Number },
 });
 
+companySchema.index({
+  companyName: "text",
+  country: "text",
+  city: "text",
+  industry: "text",
+});
+
 const companyDetails =
   mongoose.models.CompanyDetails ||
   mongoose.model("CompanyDetails", companySchema, "CompanyDetails");
