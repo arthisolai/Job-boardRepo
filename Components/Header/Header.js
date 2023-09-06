@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
+import AddCompanyForm from "../AddCompany/AddCompany";
+import Modal from "../Modal/Modal";
+import { useState } from "react";
 
 const StyledHeader = styled.header`
   position: fixed;
@@ -60,6 +63,11 @@ const StyledLink = styled.div`
 `;
 
 export default function Header({ onSearch }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   const handleSearch = (event) => {
     const query = event.target.value;
     console.log("Search Query:", query);
@@ -101,8 +109,11 @@ export default function Header({ onSearch }) {
             <Link href="/Resources">Resources</Link>
           </StyledLi>
           <StyledLi>
-            <button>Add Company</button>
+            <button onClick={toggleModal}>Add Company</button>
           </StyledLi>
+          <Modal show={showModal} onClose={toggleModal}>
+            <AddCompanyForm />
+          </Modal>
         </StyledUl>
       </nav>
     </StyledHeader>
