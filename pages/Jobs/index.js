@@ -17,8 +17,9 @@ export default function JobBoard({ searchQuery }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 10;
-  // console.log("Received Search Query:", searchQuery);
+  console.log("Received searchQuery:", searchQuery);
 
+  console.log("Component re-rendered");
   // Create the query string based on the current state values
   const queryString = [
     country && `Location=${country}`,
@@ -29,6 +30,7 @@ export default function JobBoard({ searchQuery }) {
   ]
     .filter(Boolean)
     .join("&");
+  console.log("Query string:", queryString);
 
   // Fetch data using the dynamically created query string
   const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
@@ -41,9 +43,13 @@ export default function JobBoard({ searchQuery }) {
   // );
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
+  console.log("Filters:", filters);
+
   console.log("Fetched jobs:", jobs);
 
   useEffect(() => {
+    console.log("useEffect triggered", country, department, title, searchQuery);
+    console.log("Fetching data with searchQuery:", searchQuery);
     setCurrentPage(1);
   }, [country, department, title, searchQuery]);
   const resetFilters = () => {
@@ -65,16 +71,27 @@ export default function JobBoard({ searchQuery }) {
   // Get current jobs
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  // const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
 
+  let currentJobs = [];
+  if (Array.isArray(jobs)) {
+    currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  }
   console.log("Current jobs:", currentJobs);
-
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <ContentContainer>
-      <select value={country} onChange={(e) => setCountry(e.target.value)}>
+      {/* <select value={country} onChange={(e) => setCountry(e.target.value) }>
+       */}
+      <select
+        value={country}
+        onChange={(e) => {
+          setCountry(e.target.value);
+          console.log("Country selected:", e.target.value);
+        }}
+      >
         <option value="" disabled>
           Select Country
         </option>
@@ -129,7 +146,9 @@ export default function JobBoard({ searchQuery }) {
           Previous
         </button>
         <span>
-          Page {currentPage} of {totalPages}
+          {!isNaN(totalPages)
+            ? `Page ${currentPage} of ${totalPages}`
+            : "Loading..."}
         </span>
         <button
           onClick={() => paginate(currentPage + 1)}
