@@ -21,7 +21,7 @@ export default function Company() {
   const { data: companies, error } = useSWR(`/api/Company`, fetcher);
   if (error) return <div>Failed to load company</div>;
   if (!companies) return <div>Loading...</div>;
-  console.log("Received company data:", companies);
+  // console.log("Received company data:", companies);
   return (
     <ContentContainer>
       {companies.map((company, index) => (

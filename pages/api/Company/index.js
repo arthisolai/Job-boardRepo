@@ -7,7 +7,7 @@ export default async function handler(request, response) {
 
     if (request.method === "GET") {
       const companies = await CompanyDetails.find();
-      console.log("Companies:", companies);
+      // console.log("Companies:", companies);
 
       return response.status(200).json(companies);
     } else {

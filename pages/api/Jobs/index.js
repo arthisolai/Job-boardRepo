@@ -3,15 +3,15 @@ import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
   await dbConnect();
-  console.log("Database connected");
+  // console.log("Database connected");
 
   if (request.method === "GET") {
     try {
       const { country, department, title, query } = request.query;
 
-      console.log("Received Query Parameters:", request.query);
+      // console.log("Received Query Parameters:", request.query);
 
-      console.log("Received Query Parameter:", query);
+      // console.log("Received Query Parameter:", query);
 
       const filter = {};
       if (country) filter["Location"] = country;
@@ -25,12 +25,12 @@ export default async function handler(request, response) {
           { Position: new RegExp(query, "i") },
         ];
       }
-      console.log("MongoDB filter:", filter);
+      // console.log("MongoDB filter:", filter);
 
-      const testResults = await JobInfoAllCompanies.find({
-        Location: "Hamburg",
-      });
-      console.log("Test Results:", testResults);
+      // const testResults = await JobInfoAllCompanies.find({
+      //   Location: "Hamburg",
+      // });
+      // console.log("Test Results:", testResults);
 
       const jobs = await JobInfoAllCompanies.find(filter);
       // console.log("Jobs fetched:", jobs);
