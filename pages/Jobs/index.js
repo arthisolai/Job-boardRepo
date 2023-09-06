@@ -14,7 +14,10 @@ export default function JobBoard({ searchQuery }) {
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
 
-  console.log("Received Search Query:", searchQuery);
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 10;
+
+  // console.log("Received Search Query:", searchQuery);
 
   // Create the query string based on the current state values
   const queryString = [
@@ -37,7 +40,11 @@ export default function JobBoard({ searchQuery }) {
   // );
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
-  useEffect(() => {}, [country, department, title, searchQuery]);
+  console.log("Fetched jobs:", jobs);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [country, department, title, searchQuery]);
   const resetFilters = () => {
     setCountry("");
     setDepartment("");
@@ -52,6 +59,17 @@ export default function JobBoard({ searchQuery }) {
   if (!jobs || !filters) {
     return <div>Loading...</div>;
   }
+  const totalPages = Math.ceil(jobs.length / jobsPerPage);
+
+  // Get current jobs
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+
+  console.log("Current jobs:", currentJobs);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <ContentContainer>
@@ -91,20 +109,34 @@ export default function JobBoard({ searchQuery }) {
         ))}
       </select>
       <button onClick={resetFilters}>Reset Filters</button>
-      {Array.isArray(jobs) ? (
-        jobs.map((job) => (
-          <div key={job._id}>
-            <Link href={`/Jobs/${job._id}`}>
-              <h2>{job.Position}</h2>
-            </Link>
-            <p>{job.Company}</p>
-            <p>{job.Location}</p>
-            <p>{job.jobType}</p>
-          </div>
-        ))
-      ) : (
-        <div>No jobs match the current filters.</div>
-      )}
+      {currentJobs.map((job) => (
+        <div key={job._id}>
+          <Link href={`/Jobs/${job._id}`}>
+            <h2>{job.Position}</h2>
+          </Link>
+          <p>{job.Company}</p>
+          <p>{job.Location}</p>
+          {/* <p>{job.jobType}</p> */}
+        </div>
+      ))}
+
+      <div>
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </ContentContainer>
   );
 }
