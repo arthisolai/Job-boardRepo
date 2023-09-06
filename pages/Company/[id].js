@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
+import Link from "next/link";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -17,9 +18,14 @@ export default function CompanyDetails() {
     fetcher
   );
 
+  const { data: jobs, error: jobsError } = useSWR(
+    id ? `/api/Jobs?company=${id}` : null,
+    fetcher
+  );
+
   if (error) return <div>Failed to load</div>;
   if (!company) return <div>Loading...</div>;
-  console.log(company);
+  // console.log(company);
 
   return (
     <ContentContainer>
@@ -33,6 +39,26 @@ export default function CompanyDetails() {
       <p>Company Size: {company.companySize}</p>
       <p>Industry: {company.industry}</p>
       <p>Founded In: {company.foundedIn}</p>
+
+      <h2>Jobs at {company.companyName}</h2>
+
+      {Array.isArray(jobs) ? (
+        jobs.length > 0 ? (
+          jobs.map((job) => (
+            <div key={job._id}>
+              <Link href={`/Jobs/${job._id}`}>
+                <h2>{job.Position}</h2>
+              </Link>
+              <p>{job.Company}</p>
+              <p>{job.Location}</p>
+            </div>
+          ))
+        ) : (
+          <div>No jobs available.</div>
+        )
+      ) : (
+        <div>Loading jobs...</div>
+      )}
     </ContentContainer>
   );
 }

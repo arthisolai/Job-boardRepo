@@ -13,14 +13,16 @@ export default function JobBoard({ searchQuery }) {
   const [country, setCountry] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
 
-  console.log("Received Search Query:", searchQuery);
+  // console.log("Received Search Query:", searchQuery);
 
   // Create the query string based on the current state values
   const queryString = [
     country && `Location=${country}`,
     department && `Department=${department}`,
     title && `Position=${title}`,
+    company && `Company=${company}`,
     searchQuery && `query=${searchQuery}`,
   ]
     .filter(Boolean)
@@ -29,7 +31,7 @@ export default function JobBoard({ searchQuery }) {
   // Fetch data using the dynamically created query string
   const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
 
-  console.log(`Sending request to /api/Jobs?${queryString}`);
+  // console.log(`Sending request to /api/Jobs?${queryString}`);
 
   // const { data: jobs, error } = useSWR(
   //   `/api/Jobs?country=${country}&department=${department}&title=${title}&query=${searchQuery}`,
@@ -99,7 +101,7 @@ export default function JobBoard({ searchQuery }) {
             </Link>
             <p>{job.Company}</p>
             <p>{job.Location}</p>
-            <p>{job.jobType}</p>
+            {/* <p>{job.jobType}</p> */}
           </div>
         ))
       ) : (
