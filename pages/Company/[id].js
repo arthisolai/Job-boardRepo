@@ -23,6 +23,11 @@ export default function CompanyDetails() {
     fetcher
   );
 
+  const filteredJobs =
+    jobs && company
+      ? jobs.filter((job) => job.Company === company.companyName)
+      : [];
+
   if (error) return <div>Failed to load</div>;
   if (!company) return <div>Loading...</div>;
   // console.log(company);
@@ -42,9 +47,9 @@ export default function CompanyDetails() {
 
       <h2>Jobs at {company.companyName}</h2>
 
-      {Array.isArray(jobs) ? (
-        jobs.length > 0 ? (
-          jobs.map((job) => (
+      {jobs ? (
+        Array.isArray(filteredJobs) && filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
             <div key={job._id}>
               <Link href={`/Jobs/${job._id}`}>
                 <h2>{job.Position}</h2>
