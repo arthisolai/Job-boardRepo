@@ -7,16 +7,19 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const { country, department, title, query } = request.query;
+      const { Location, Department, Position, query } = request.query;
 
-      // console.log("Received Query Parameters:", request.query);
+      // console.log("Country:", country);
+
+      console.log("Received Query Parameters:", request.query);
 
       // console.log("Received Query Parameter:", query);
 
       const filter = {};
-      if (country) filter["Location"] = country;
-      if (department) filter["Department"] = department;
-      if (title) filter["Position"] = title;
+      if (Location) filter["Location"] = Location;
+      console.log("MongoDB filter:", filter);
+      if (Department) filter["Department"] = Department;
+      if (Position) filter["Position"] = Position;
       if (query) {
         filter["$or"] = [
           { Company: new RegExp(query, "i") },
@@ -25,7 +28,7 @@ export default async function handler(request, response) {
           { Position: new RegExp(query, "i") },
         ];
       }
-      // console.log("MongoDB filter:", filter);
+      console.log("MongoDB filter:", filter);
 
       // const testResults = await JobInfoAllCompanies.find({
       //   Location: "Hamburg",
