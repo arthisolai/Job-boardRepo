@@ -4,6 +4,7 @@ import styled from "styled-components";
 import NetherlandsTaxCalculator from "@/utils/NetherlandsTaxCalculator";
 import GermanTaxCalculator from "@/utils/GermanyTaxCalculator";
 import SpainTaxCalculator from "@/utils/SpainTaxCalculator";
+import EmailForm from "../Components/EmailForm/EmailForm";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -19,6 +20,7 @@ export default function Home() {
         <GermanTaxCalculator />
         <NetherlandsTaxCalculator />
         <SpainTaxCalculator />
+        <EmailForm />
       </ContentContainer>
     </>
   );
