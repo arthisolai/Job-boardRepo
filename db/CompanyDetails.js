@@ -11,6 +11,7 @@ const companySchema = new Schema({
   companySize: { type: String, required: true },
   industry: { type: String, required: true },
   foundedIn: { type: Number },
+  companyLogo: { type: String },
 });
 
 companySchema.index({

@@ -13,6 +13,7 @@ export default function AddCompanyForm() {
     foundedIn: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,24 +25,41 @@ export default function AddCompanyForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch("/api/addCompany", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (res.status === 201) {
-        const data = await res.json();
-        console.log("Company added:", data);
-        setShowSuccess(true);
-      } else {
-        console.log("Error:", res.status, await res.json());
+    const logoFormData = new FormData();
+    logoFormData.append("logo", file);
+
+    const logoResponse = await fetch("/upload-logo", {
+      method: "POST",
+      body: logoFormData,
+    });
+
+    const logoData = await logoResponse.json();
+
+    if (logoResponse.ok) {
+      const companyData = {
+        ...formData,
+        companyLogo: logoData.imageUrl,
+      };
+      try {
+        const res = await fetch("/api/addCompany", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(companyData),
+        });
+
+        if (res.status === 201) {
+          const data = await res.json();
+          console.log("Company added:", data);
+          setShowSuccess(true);
+        } else {
+          console.log("Error:", res.status, await res.json());
+        }
+      } catch (error) {
+        console.log("Fetch error:", error);
       }
-    } catch (error) {
-      console.log("Fetch error:", error);
     }
   };
 
@@ -114,6 +132,13 @@ export default function AddCompanyForm() {
           onChange={handleChange}
           required
         />
+        <input
+          type="file"
+          name="logo"
+          onChange={(e) => setFile(e.target.files[0])}
+          required
+        />
+
         <button type="submit">Add Company</button>
       </form>
     </div>
