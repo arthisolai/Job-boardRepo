@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
-import AddCompanyForm from "../AddCompany/AddCompany";
+import AddCompanyForm from "../AddCompany/AddCompanyForm";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
 
