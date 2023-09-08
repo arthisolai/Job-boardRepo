@@ -1,6 +1,8 @@
-import { cloudinary } from "cloudinary";
+import cloudinary from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import multer from "multer";
+import dbConnect from "@/db/connect";
+import CompanyDetails from "@/db/CompanyDetails";
 
 // Cloudinary configuration
 cloudinary.config({
@@ -26,21 +28,61 @@ export const config = {
   },
 };
 
-export default async (req, res) => {
-  if (req.method === "POST") {
-    const upload = parser.single("logo");
-    upload(req, res, async (error) => {
-      if (error) {
-        return res.status(500).json({ error: "Upload failed" });
+const uploadLogo = async (req, res) => {
+  console.log("Full Request Object:", req);
+
+  console.log("Request body:", req.body);
+  try {
+    await dbConnect();
+    console.log("Method:::::::::", req.method);
+    if (req.method === "POST") {
+      const uploadPromise = new Promise((resolve, reject) => {
+        const upload = parser.single("logo");
+        upload(req, res, (error) => {
+          if (error) {
+            console.error("Error in parser middleware:", error);
+            reject(error);
+          } else {
+            const file = req.file;
+            resolve(file);
+          }
+        });
+      });
+
+      const uploadedFile = await uploadPromise;
+      console.log("File uploaded:", uploadedFile);
+
+      const imageUrl = uploadedFile.path;
+      console.log("Cloudinary URL:", imageUrl);
+
+      const companyData = {
+        ...req.body,
+        companyLogo: imageUrl,
+      };
+      console.log("Before database insertion:", companyData);
+      const result = await CompanyDetails.create(companyData);
+
+      console.log("Database operation result:", result);
+      console.log("After database insertion");
+      if (result && result.nModified === 0 && result.n === 0) {
+        console.warn(
+          "No documents matched the filter. Update operation was not performed."
+        );
+      } else if (result && result.nModified === 0) {
+        console.warn(
+          "No documents were updated. The filter matched one or more documents but no changes were made."
+        );
       }
-      // Handle the rest of the upload logic here
-      const imageUrl = req.file.path;
-      // Store this URL in your MongoDB collection
-      // ... your MongoDB logic here ...
 
       res.status(200).json({ message: "Logo uploaded successfully", imageUrl });
-    });
-  } else {
-    res.status(405).json({ error: "Method not allowed" });
+    } else {
+      console.log("Method not allowed");
+      res.status(405).json({ error: "Method not allowed" });
+    }
+  } catch (error) {
+    console.error("Error in uploadLogo:", error);
+    res.status(500).json({ error: "Server error", details: error.message });
   }
 };
+
+export default uploadLogo;

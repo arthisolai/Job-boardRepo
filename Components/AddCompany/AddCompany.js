@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createGlobalStyle } from "styled-components";
 
 export default function AddCompanyForm() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,10 @@ export default function AddCompanyForm() {
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    console.log(formData);
+
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -29,20 +34,30 @@ export default function AddCompanyForm() {
     const logoFormData = new FormData();
     logoFormData.append("logo", file);
 
-    const logoResponse = await fetch("/upload-logo", {
+    const logoResponse = await fetch("/api/UploadLogo/UploadLogo", {
       method: "POST",
       body: logoFormData,
     });
 
     const logoData = await logoResponse.json();
+    console.log("====================", logoData);
 
     if (logoResponse.ok) {
+      const imageUrl = logoData.imageUrl;
+
       const companyData = {
         ...formData,
-        companyLogo: logoData.imageUrl,
+        companyLogo: imageUrl,
       };
+      console.log("Company Data:", companyData);
+
+      // if (logoResponse.ok) {
+      //   const companyData = {
+      //     ...formData,
+      //     companyLogo: logoData.imageUrl,
+      //   };
       try {
-        const res = await fetch("/api/addCompany", {
+        const res = await fetch("/api/AddCompany/AddCompany", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +84,11 @@ export default function AddCompanyForm() {
         <div className="success-message">Company successfully added!</div>
       ) : null}
 
-      <form onSubmit={handleSubmit}>
+      <form
+        action="/api/AddCompany/AddCompany"
+        method="POST"
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
           name="companyName"
