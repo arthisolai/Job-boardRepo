@@ -11,7 +11,18 @@ const ContentContainer = styled.div`
 `;
 
 export default function Home() {
-  const { data } = useSWR("/api/parity", { fallbackData: [] });
+  const { data, error } = useSWR("/api/parity", { fallbackData: [] });
+  if (error) {
+    console.error("Error fetching data:", error);
+    // Handle the error, e.g., display an error message to the user
+    return <div>Error fetching data</div>;
+  }
+
+  if (!data) {
+    // Data is still loading
+    return <div>Loading...</div>;
+  }
+
   console.log("data in index frontend", data);
   return (
     <>

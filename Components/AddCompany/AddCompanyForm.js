@@ -12,69 +12,59 @@ export default function AddCompanyForm() {
     companySize: "",
     industry: "",
     foundedIn: "",
+    logo: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
-    console.log(formData);
-
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, files } = e.target;
+    if (name === "logo" && files.length > 0) {
+      // If the field is "logo" and a file has been selected
+      // If the field is "logo" and a file has been selected
+      console.log("Selected file:", files[0]);
+      setFile(files[0]);
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const logoFormData = new FormData();
-    logoFormData.append("logo", file);
+    const companyData = {
+      companyName: formData.companyName,
+      companyURL: formData.companyURL,
+      careersURL: formData.careersURL,
+      aboutCompany: formData.aboutCompany,
+      country: formData.country,
+      city: formData.city,
+      companySize: formData.companySize,
+      industry: formData.industry,
+      foundedIn: formData.foundedIn,
+      logo: file,
+    };
+    try {
+      const res = await fetch("/api/AddCompany/AddCompany", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON
+        },
+        body: JSON.stringify(companyData), // Send the data as JSON
+      });
 
-    const logoResponse = await fetch("/api/UploadLogo/UploadLogo", {
-      method: "POST",
-      body: logoFormData,
-    });
-
-    const logoData = await logoResponse.json();
-    console.log("====================", logoData);
-
-    if (logoResponse.ok) {
-      const imageUrl = logoData.imageUrl;
-
-      const companyData = {
-        ...formData,
-        companyLogo: imageUrl,
-      };
-      console.log("Company Data:", companyData);
-
-      // if (logoResponse.ok) {
-      //   const companyData = {
-      //     ...formData,
-      //     companyLogo: logoData.imageUrl,
-      //   };
-      try {
-        const res = await fetch("/api/AddCompany/AddCompany", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(companyData),
-        });
-
-        if (res.status === 201) {
-          const data = await res.json();
-          console.log("Company added:", data);
-          setShowSuccess(true);
-        } else {
-          console.log("Error:", res.status, await res.json());
-        }
-      } catch (error) {
-        console.log("Fetch error:", error);
+      if (res.status === 201) {
+        const data = await res.json();
+        console.log("Company added:", data);
+        setShowSuccess(true);
+      } else {
+        console.log("Error:", res.status, await res.json());
       }
+    } catch (error) {
+      console.log("Fetch error:", error);
     }
   };
 
@@ -88,6 +78,7 @@ export default function AddCompanyForm() {
         action="/api/AddCompany/AddCompany"
         method="POST"
         onSubmit={handleSubmit}
+        encType="multipart/form-data"
       >
         <input
           type="text"
