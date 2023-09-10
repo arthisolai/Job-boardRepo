@@ -128,9 +128,15 @@ export default function JobBoard({ searchQuery }) {
       </select>
       <button onClick={resetFilters}>Reset Filters</button>
       {currentJobs.map((job) => (
-        <div key={job._id}>
-          <Link href={`/Jobs/${job._id}`}>
-            <h2>{job.Position}</h2>
+        <div
+          key={job._id}
+          className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2"
+        >
+          <Link
+            href={`/Jobs/${job._id}`}
+            className="text-blue-600 hover:text-blue-800 transition duration-300"
+          >
+            <h2 className="font-bold">{job.Position}</h2>
           </Link>
           <p>{job.Company}</p>
           <p>{job.Location}</p>

@@ -41,22 +41,36 @@ export default function SpainTaxCalculator() {
   }, [income]);
 
   return (
-    <div>
-      <h1>Spain Tax Calculator</h1>
-      <form>
-        <div>
-          <label>Annual Income: </label>
+    <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-md">
+      <h1 className="text-3xl font-bold text-center mb-4">
+        Spain Tax Calculator
+      </h1>
+
+      <form className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label className="font-medium text-gray-700" htmlFor="income">
+            Annual Income:
+          </label>
           <input
             type="number"
+            id="income"
+            className="p-2 border rounded-md"
             value={income}
             onChange={(e) => setIncome(parseFloat(e.target.value))}
           />
         </div>
       </form>
-      <div>
-        <h2>Results:</h2>
-        <p>Annual Net Income: €{netIncome.annualNet}</p>
-        <p>Monthly Net Income: €{netIncome.monthlyNet}</p>
+
+      <div className="mt-6">
+        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        <p className="text-lg mb-2">
+          <span className="font-medium">Annual Net Income:</span> €
+          {netIncome.annualNet}
+        </p>
+        <p className="text-lg">
+          <span className="font-medium">Monthly Net Income:</span> €
+          {netIncome.monthlyNet}
+        </p>
       </div>
     </div>
   );

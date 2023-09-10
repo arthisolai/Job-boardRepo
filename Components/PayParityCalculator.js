@@ -76,58 +76,76 @@ export default function PayParityCalculator() {
   }, [sourceCountry, targetCountry, sourceSalary, payParityData]);
 
   return (
-    <ContentContainer>
-      <div>
-        <label>Source Country:</label>
-        <select
-          value={sourceCountry}
-          onChange={(event) => setSourceCountry(event.target.value)}
-          style={{ color: "black" }}
-        >
-          {payParityData.map((country) => (
-            <option key={country.CountryCode} value={country.CountryCode}>
-              {country.CountryName}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div className="max-w-xl mx-auto p-4 bg-gray-100 shadow-lg rounded-md">
+      <div className="space-y-4">
+        <div className="flex flex-col space-y-2 border-b pb-4">
+          <label className="font-medium text-gray-700" htmlFor="sourceCountry">
+            Source Country:
+          </label>
+          <select
+            id="sourceCountry"
+            className="p-2 border-2 border-blue-500 rounded-md text-black"
+            value={sourceCountry}
+            onChange={(event) => setSourceCountry(event.target.value)}
+          >
+            {payParityData.map((country) => (
+              <option key={country.CountryCode} value={country.CountryCode}>
+                {country.CountryName}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div>
-        <label>Source Salary:</label>
-        <input
-          type="number"
-          value={sourceSalary}
-          onChange={(event) => {
-            console.log("Changed value:", event.target.value);
-            setSourceSalary(Number(event.target.value));
-          }}
-          style={{ color: "black" }}
-        />
-      </div>
+        <div className="flex flex-col space-y-2 border-b pb-4">
+          <label className="font-medium text-gray-700" htmlFor="sourceSalary">
+            Source Salary:
+          </label>
+          <input
+            id="sourceSalary"
+            type="number"
+            className="p-2 border-2 border-blue-500 rounded-md text-black"
+            value={sourceSalary}
+            onChange={(event) => {
+              console.log("Changed value:", event.target.value);
+              setSourceSalary(Number(event.target.value));
+            }}
+          />
+        </div>
 
-      <div>
-        <label>Target Country:</label>
-        <select
-          value={targetCountry}
-          onChange={(event) => setTargetCountry(event.target.value)}
-          style={{ color: "black" }}
-        >
-          {payParityData.map((country) => (
-            <option key={country.CountryCode} value={country.CountryCode}>
-              {country.CountryName}
-            </option>
-          ))}
-        </select>
+        <div className="flex flex-col space-y-2 border-b pb-4">
+          <label className="font-medium text-gray-700" htmlFor="targetCountry">
+            Target Country:
+          </label>
+          <select
+            id="targetCountry"
+            className="p-2 border-2 border-green-500 rounded-md text-black"
+            value={targetCountry}
+            onChange={(event) => setTargetCountry(event.target.value)}
+          >
+            {payParityData.map((country) => (
+              <option key={country.CountryCode} value={country.CountryCode}>
+                {country.CountryName}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            className="font-medium text-gray-700"
+            htmlFor="convertedSalary"
+          >
+            Converted Salary in:
+          </label>
+          <input
+            id="convertedSalary"
+            type="text"
+            className="p-2 border-2 border-red-500 rounded-md text-black"
+            value={convertedSalary}
+            readOnly
+          />
+        </div>
       </div>
-      <div>
-        <label>Converted Salary in :</label>
-        <input
-          type="text"
-          value={convertedSalary}
-          readOnly
-          style={{ color: "black" }}
-        />
-      </div>
-    </ContentContainer>
+    </div>
   );
 }

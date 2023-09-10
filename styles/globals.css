@@ -1,7 +1,8 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -25,3 +26,17 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&display=swap");
+
+body {
+  margin: 0;
+  line-height: normal;
+  font-family: "DM Sans", sans-serif; /* Optional: if you want DM Sans to be the default font for the entire app */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

@@ -57,20 +57,32 @@ export default function GermanTaxCalculator() {
   }, [income, taxClass]);
 
   return (
-    <div>
-      <h1>German Tax Calculator</h1>
-      <form>
-        <div>
-          <label>Annual Income: </label>
+    <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-md">
+      <h1 className="text-3xl font-bold text-center mb-4">
+        German Tax Calculator
+      </h1>
+
+      <form className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label className="font-medium text-gray-700" htmlFor="income">
+            Annual Income:
+          </label>
           <input
             type="number"
+            id="income"
+            className="p-2 border rounded-md"
             value={income}
             onChange={(e) => setIncome(parseFloat(e.target.value))}
           />
         </div>
-        <div>
-          <label>Tax Class: </label>
+
+        <div className="flex flex-col space-y-2">
+          <label className="font-medium text-gray-700" htmlFor="taxClass">
+            Tax Class:
+          </label>
           <select
+            id="taxClass"
+            className="p-2 border rounded-md"
             value={taxClass}
             onChange={(e) => setTaxClass(e.target.value)}
           >
@@ -89,10 +101,17 @@ export default function GermanTaxCalculator() {
           </select>
         </div>
       </form>
-      <div>
-        <h2>Results:</h2>
-        <p>Annual Net Income: €{annualNet.toFixed(2)}</p>
-        <p>Monthly Net Income: €{monthlyNet.toFixed(2)}</p>
+
+      <div className="mt-6">
+        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        <p className="text-lg mb-2">
+          <span className="font-medium">Annual Net Income:</span> €
+          {annualNet.toFixed(2)}
+        </p>
+        <p className="text-lg">
+          <span className="font-medium">Monthly Net Income:</span> €
+          {monthlyNet.toFixed(2)}
+        </p>
       </div>
     </div>
   );
