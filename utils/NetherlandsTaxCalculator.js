@@ -49,20 +49,32 @@ export default function NetherlandsTaxCalculator() {
   }, [income, maritalStatus, numberOfChildren]);
 
   return (
-    <div>
-      <h1>Netherlands Tax Calculator</h1>
-      <form>
-        <div>
-          <label>Annual Income: </label>
+    <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-md">
+      <h1 className="text-3xl font-bold text-center mb-4">
+        Netherlands Tax Calculator
+      </h1>
+
+      <form className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <label className="font-medium text-gray-700" htmlFor="income">
+            Annual Income:
+          </label>
           <input
             type="number"
+            id="income"
+            className="p-2 border rounded-md"
             value={income}
             onChange={(e) => setIncome(parseFloat(e.target.value))}
           />
         </div>
-        <div>
-          <label>Marital Status: </label>
+
+        <div className="flex flex-col space-y-2">
+          <label className="font-medium text-gray-700" htmlFor="maritalStatus">
+            Marital Status:
+          </label>
           <select
+            id="maritalStatus"
+            className="p-2 border rounded-md"
             value={maritalStatus}
             onChange={(e) => setMaritalStatus(e.target.value)}
           >
@@ -70,29 +82,49 @@ export default function NetherlandsTaxCalculator() {
             <option value="married">Married</option>
           </select>
         </div>
-        <div>
-          <label>Number of Children: </label>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            className="font-medium text-gray-700"
+            htmlFor="numberOfChildren"
+          >
+            Number of Children:
+          </label>
           <input
             type="number"
+            id="numberOfChildren"
+            className="p-2 border rounded-md"
             value={numberOfChildren}
             onChange={(e) => setNumberOfChildren(parseInt(e.target.value))}
           />
         </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={isRulingApplied}
-              onChange={() => setIsRulingApplied(!isRulingApplied)}
-            />
+
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="isRulingApplied"
+            className="mr-2"
+            checked={isRulingApplied}
+            onChange={() => setIsRulingApplied(!isRulingApplied)}
+          />
+          <label
+            htmlFor="isRulingApplied"
+            className="font-medium text-gray-700"
+          >
             Apply 30% ruling
           </label>
         </div>
       </form>
-      <div>
-        <h2>Results:</h2>
-        <p>Annual Net Income: €{netIncome}</p>
-        <p>Monthly Net Income: €{monthlyNetIncome}</p>
+
+      <div className="mt-6">
+        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        <p className="text-lg mb-2">
+          <span className="font-medium">Annual Net Income:</span> €{netIncome}
+        </p>
+        <p className="text-lg">
+          <span className="font-medium">Monthly Net Income:</span> €
+          {monthlyNetIncome}
+        </p>
       </div>
     </div>
   );

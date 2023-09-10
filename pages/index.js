@@ -98,55 +98,112 @@ export default function Home({ searchQuery }) {
   return (
     <>
       <ContentContainer>
-        <h1 className={styles.heading}>Get Global with Your Tech Career</h1>
-        <h2 className={styles.heading2}>
-          Find Tech Roles Offering Visa & Relocation Support, Explore 150
-          Curated Tech Jobs from 10 Diverse Countries Across the Globe
-        </h2>
+        <div className="text-center font-sans">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Get Global with Your Tech Career
+          </h1>
+          <h2 className="text-2xl md:text-3xl text-gray-600 mx-4 md:mx-8 lg:mx-16">
+            Find Tech Roles Offering Visa & Relocation Support, Explore 150
+            Curated Tech Jobs from 10 Diverse Countries Across the Globe
+          </h2>
+        </div>
+
         {/* <select value={country} onChange={(e) => setCountry(e.target.value) }>
          */}
-        <select
-          value={country}
-          onChange={(e) => {
-            setCountry(e.target.value);
-            console.log("Country selected:", e.target.value);
-          }}
-        >
-          <option value="" disabled>
-            Select Country
-          </option>
-          {filters.countries.map((country) => (
-            <option key={country} value={country}>
-              {country}
-            </option>
-          ))}
-        </select>
+        <div className="flex justify-center w-full mt-8 mb-8">
+          <div className="flex items-center space-x-4 bg-white p-4 rounded-md shadow">
+            {/* Country Filter */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="country"
+                className="text-sm font-medium text-gray-700 mb-1"
+              >
+                Country
+              </label>
+              <select
+                id="country"
+                className="p-2 border rounded-md appearance-none"
+                value={country}
+                onChange={(e) => {
+                  setCountry(e.target.value);
+                  console.log("Country selected:", e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select Country
+                </option>
+                {filters.countries.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <select
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-        >
-          <option value="" disabled>
-            Select Department
-          </option>
-          {filters.departments.map((department) => (
-            <option key={department} value={department}>
-              {department}
-            </option>
-          ))}
-        </select>
+            {/* Department Filter */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="department"
+                className="text-sm font-medium text-gray-700 mb-1"
+              >
+                Department
+              </label>
+              <select
+                id="department"
+                className="p-2 border rounded-md appearance-none"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Department
+                </option>
+                {filters.departments.map((department) => (
+                  <option key={department} value={department}>
+                    {department}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <select value={title} onChange={(e) => setTitle(e.target.value)}>
-          <option value="" disabled>
-            Select Title
-          </option>
-          {filters.titles.map((title) => (
-            <option key={title} value={title}>
-              {title}
-            </option>
-          ))}
-        </select>
-        <button onClick={resetFilters}>Reset Filters</button>
+            {/* Title Filter */}
+            {/* <div className="flex flex-col mb-2 w-full sm:w-1/3">
+            <label
+              htmlFor="title"
+              className="text-sm font-medium text-gray-700 mb-1"
+            >
+              Title
+            </label>
+            <select
+              id="title"
+              className="p-2 border rounded-md w-full"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            >
+              <option value="" disabled>
+                Select Title
+              </option>
+              {filters.titles.map((title) => (
+                <option key={title} value={title}>
+                  {title}
+                </option>
+              ))}
+            </select>
+          </div> */}
+
+            {/* Reset Button */}
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-700 mb-1 invisible">
+                Placeholder
+              </span>
+              <button
+                onClick={resetFilters}
+                className="p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+              >
+                Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="space-y-4">
           {currentJobs.map((job) => (
             <div

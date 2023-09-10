@@ -70,7 +70,6 @@ export default function CompanyDetails() {
           <span className="font-medium">Founded In:</span> {company.foundedIn}
         </p>
       </div>
-
       {/* Job listings below */}
       <div className="w-full mt-10">
         <h2 className="text-2xl font-medium text-left mb-5">
@@ -79,21 +78,23 @@ export default function CompanyDetails() {
 
         {jobs ? (
           Array.isArray(filteredJobs) && filteredJobs.length > 0 ? (
-            filteredJobs.map((job) => (
-              <div
-                key={job._id}
-                className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 my-4"
-              >
-                <Link
-                  href={`/Jobs/${job._id}`}
-                  className="text-blue-600 hover:text-blue-800 transition duration-300"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {filteredJobs.map((job) => (
+                <div
+                  key={job._id}
+                  className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2"
                 >
-                  <h2 className="font-bold">{job.Position}</h2>
-                </Link>
-                <p>{job.Company}</p>
-                <p>{job.Location}</p>
-              </div>
-            ))
+                  <Link
+                    href={`/Jobs/${job._id}`}
+                    className="text-blue-600 hover:text-blue-800 transition duration-300"
+                  >
+                    <h2 className="font-bold">{job.Position}</h2>
+                  </Link>
+                  <p>{job.Company}</p>
+                  <p>{job.Location}</p>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="text-center font-medium">No jobs available.</div>
           )
