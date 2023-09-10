@@ -3,6 +3,7 @@ import styled from "styled-components";
 import EmailForm from "../Components/EmailForm/EmailForm";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import styles from "../styles/index.module.css";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -97,8 +98,8 @@ export default function Home({ searchQuery }) {
   return (
     <>
       <ContentContainer>
-        <h1>Get Global with Your Tech Career</h1>
-        <h2>
+        <h1 className={styles.heading}>Get Global with Your Tech Career</h1>
+        <h2 className={styles.heading2}>
           Find Tech Roles Offering Visa & Relocation Support, Explore 150
           Curated Tech Jobs from 10 Diverse Countries Across the Globe
         </h2>
@@ -146,25 +147,35 @@ export default function Home({ searchQuery }) {
           ))}
         </select>
         <button onClick={resetFilters}>Reset Filters</button>
-        {currentJobs.map((job) => (
-          <div key={job._id}>
-            <Link href={`/Jobs/${job._id}`}>
-              <h2>{job.Position}</h2>
-            </Link>
-            <p>{job.Company}</p>
-            <p>{job.Location}</p>
-            {/* <p>{job.jobType}</p> */}
-          </div>
-        ))}
-
-        <div>
+        <div className="space-y-4">
+          {currentJobs.map((job) => (
+            <div
+              key={job._id}
+              className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 max-w-x1 mx-8"
+            >
+              <Link
+                href={`/Jobs/${job._id}`}
+                className="text-blue-600 hover:text-blue-800 transition duration-300"
+              >
+                <h2 className="font-bold">{job.Position}</h2>
+              </Link>
+              <p>{job.Company}</p>
+              <p>{job.Location}</p>
+              {/* <p>{job.jobType}</p> */}
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-center space-x-4 mt-4">
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
+            className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+              currentPage === 1 ? "cursor-not-allowed bg-gray-300" : ""
+            }`}
           >
             Previous
           </button>
-          <span>
+          <span className="text-lg">
             {!isNaN(totalPages)
               ? `Page ${currentPage} of ${totalPages}`
               : "Loading..."}
@@ -172,6 +183,9 @@ export default function Home({ searchQuery }) {
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
+            className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+              currentPage === totalPages ? "cursor-not-allowed bg-gray-300" : ""
+            }`}
           >
             Next
           </button>

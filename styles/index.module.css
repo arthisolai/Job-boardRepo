@@ -1,0 +1,26 @@
+.heading {
+  position: relative;
+  font-size: 56px;
+  line-height: 66px;
+  display: inline-block;
+  font-family: "DM Sans";
+  color: #202124;
+  text-align: center;
+  width: 1300px;
+  height: 71px;
+}
+
+.heading2 {
+  position: relative;
+  font-size: 36px;
+  line-height: 58px;
+  font-weight: 500;
+  font-family: "DM Sans";
+  color: #202124;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1300px;
+  height: 100px;
+}
