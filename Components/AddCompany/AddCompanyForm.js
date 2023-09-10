@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createGlobalStyle } from "styled-components";
+import styles from "./AddCompanyForm.module.css";
 
 export default function AddCompanyForm() {
   const [formData, setFormData] = useState({
@@ -57,11 +58,12 @@ export default function AddCompanyForm() {
   };
 
   return (
-    <div>
+    <div className={styles.modalcontainer}>
+      <h1 className={styles.heading}>Add Company Details</h1>{" "}
+      {/* This is your new heading */}
       {showSuccess ? (
-        <div className="success-message">Company successfully added!</div>
+        <div className={styles.successMessage}>Company successfully added!</div>
       ) : null}
-
       <form
         action="/api/AddCompany/AddCompany"
         method="POST"

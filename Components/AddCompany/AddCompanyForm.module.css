@@ -1,0 +1,64 @@
+/* Heading styles */
+.heading {
+  font-size: 24px; /* Adjust as needed */
+  color: #333; /* Dark gray color */
+  border-bottom: 2px solid #f0f0f0; /* Light gray underline for visual separation */
+  padding-bottom: 10px; /* Spacing below the text and the underline */
+  margin-bottom: 20px; /* Spacing below the heading for elements that come after it */
+  text-align: center; /* Center the text, optional based on your design preference */
+}
+
+.modalcontainer {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #f6f7fb;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modalcontainer .success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.modalcontainer input,
+.modalcontainer textarea,
+.modalcontainer button {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #e4e6f0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.modalcontainer input:focus,
+.modalcontainer textarea:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+.modalcontainer button {
+  cursor: pointer;
+  background-color: #0077cc;
+  color: #ffffff;
+  border: none;
+}
+
+.modalcontainer button:hover {
+  background-color: #005fa3;
+}
+
+.modalcontainer textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.modalcontainer input[type="file"] {
+  padding: 5px 0;
+}
