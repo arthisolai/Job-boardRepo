@@ -12,48 +12,36 @@ export default function AddCompanyForm() {
     companySize: "",
     industry: "",
     foundedIn: "",
-    logo: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "logo" && files.length > 0) {
-      // If the field is "logo" and a file has been selected
-      // If the field is "logo" and a file has been selected
-      console.log("Selected file:", files[0]);
-      setFile(files[0]);
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
+    const { name, value } = e.target;
+    // Remove the logo check completely from here
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const companyData = {
-      companyName: formData.companyName,
-      companyURL: formData.companyURL,
-      careersURL: formData.careersURL,
-      aboutCompany: formData.aboutCompany,
-      country: formData.country,
-      city: formData.city,
-      companySize: formData.companySize,
-      industry: formData.industry,
-      foundedIn: formData.foundedIn,
-      logo: file,
-    };
+    const formDataToSubmit = new FormData();
+    for (const name in formData) {
+      formDataToSubmit.append(name, formData[name]);
+    }
+    if (file) {
+      formDataToSubmit.append("logo", file);
+    }
+    for (let pair of formDataToSubmit.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
     try {
       const res = await fetch("/api/AddCompany/AddCompany", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Set the content type to JSON
-        },
-        body: JSON.stringify(companyData), // Send the data as JSON
+        body: formDataToSubmit, // Using FormData here
       });
 
       if (res.status === 201) {
@@ -145,7 +133,10 @@ export default function AddCompanyForm() {
         <input
           type="file"
           name="logo"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+            console.log(e.target.files[0]);
+          }}
           required
         />
 

@@ -76,14 +76,9 @@ export default function Header({ onSearch }) {
 
   return (
     <StyledHeader>
-      <div className="logo">
-        <Image
-          src="/path/to/your/logo.png"
-          alt="Site Logo"
-          width={50}
-          height={50}
-        />
-      </div>
+      {/* <div className="logo">
+        <Image src="/logo.png" alt="Site Logo" width={50} height={50} />
+      </div> */}
       <div className="search-bar">
         <input
           type="text"
