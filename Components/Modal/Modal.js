@@ -22,7 +22,7 @@ const ModalContent = styled.div`
 const CloseButton = styled.button`
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 30px;
 `;
 
 export default function Modal({ show, onClose, children }) {
