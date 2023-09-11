@@ -31,9 +31,9 @@ export default function Home({ searchQuery }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 10;
-  console.log("Received searchQuery:", searchQuery);
+  // console.log("Received searchQuery:", searchQuery);
 
-  console.log("Component re-rendered");
+  // console.log("Component re-rendered");
   // Create the query string based on the current state values
   const queryString = [
     country && `Location=${country}`,
@@ -44,7 +44,7 @@ export default function Home({ searchQuery }) {
   ]
     .filter(Boolean)
     .join("&");
-  console.log("Query string:", queryString);
+  // console.log("Query string:", queryString);
 
   // Fetch data using the dynamically created query string
   const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
@@ -57,9 +57,9 @@ export default function Home({ searchQuery }) {
   // );
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
 
-  console.log("Filters:", filters);
+  // console.log("Filters:", filters);
 
-  console.log("Fetched jobs:", jobs);
+  // console.log("Fetched jobs:", jobs);
 
   useEffect(() => {
     console.log("useEffect triggered", country, department, title, searchQuery);
@@ -91,7 +91,7 @@ export default function Home({ searchQuery }) {
   if (Array.isArray(jobs)) {
     currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
   }
-  console.log("Current jobs:", currentJobs);
+  // console.log("Current jobs:", currentJobs);
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

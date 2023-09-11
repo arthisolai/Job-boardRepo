@@ -2,6 +2,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -29,12 +30,26 @@ export default function Company() {
           key={index}
           className="p-6 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white"
         >
-          <Link
-            href={`/Company/${company._id}`}
-            className="text-blue-600 hover:text-blue-800 transition duration-300"
-          >
-            <h1 className="text-xl font-bold mb-3">{company.companyName}</h1>
-          </Link>
+          <div className="flex items-center space-x-4">
+            <div className="relative w-16 h-16 rounded-full overflow-hidden">
+              <Image
+                src={
+                  company.companyLogo.startsWith("data:")
+                    ? company.companyLogo
+                    : `data:image/png;base64,${company.companyLogo}`
+                }
+                alt={`${company.companyName} logo`}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+            <Link
+              href={`/Company/${company._id}`}
+              className="text-blue-600 hover:text-blue-800 transition duration-300"
+            >
+              <h1 className="text-xl font-bold mb-3">{company.companyName}</h1>
+            </Link>
+          </div>
           <a
             href={company.companyURL}
             className="text-blue-500 hover:underline mb-2 block"

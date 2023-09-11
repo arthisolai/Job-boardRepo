@@ -4,6 +4,7 @@ import styled from "styled-components";
 import AddCompanyForm from "../AddCompany/AddCompanyForm";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const StyledHeader = styled.header`
   position: fixed;
@@ -64,7 +65,7 @@ const StyledLink = styled.div`
 
 export default function Header({ onSearch }) {
   const [showModal, setShowModal] = useState(false);
-
+  const router = useRouter();
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -76,9 +77,19 @@ export default function Header({ onSearch }) {
 
   return (
     <header className="flex items-center justify-between p-4">
-      {/* <div className="logo">
-        <Image src="/logo.png" alt="Site Logo" width={50} height={50} />
-      </div> */}
+      {/* Left side with logo and website title */}
+      <div
+        className="flex items-center space-x-4 cursor-pointer"
+        onClick={() => router.push("/")}
+      >
+        <Image
+          src="/images/GetGlobal.png"
+          alt="GetGlobal Logo"
+          width={50}
+          height={50}
+        />
+        <h1 className="text-2xl font-bold">GetGlobal</h1>
+      </div>
       <div className="p-4">
         <label
           for="default-search"
