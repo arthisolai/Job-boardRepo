@@ -35,8 +35,10 @@ export default async function handler(request, response) {
       // });
       // console.log("Test Results:", testResults);
 
-      const jobs = await JobInfoAllCompanies.find(filter);
-      // console.log("Jobs fetched:", jobs);
+      const jobs = await JobInfoAllCompanies.find(filter).populate(
+        "CompanyInfo"
+      );
+      console.log("Jobs fetched:::::::::::::::::", jobs);
 
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });

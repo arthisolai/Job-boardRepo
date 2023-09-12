@@ -27,6 +27,10 @@ const jobInfoSchema = new Schema({
     Title: { type: String },
     Text: { type: [String] },
   },
+  CompanyInfo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CompanyDetails",
+  },
 });
 
 jobInfoSchema.index({
@@ -39,6 +43,6 @@ jobInfoSchema.index({
 
 const JobInfoAllCompanies =
   mongoose.models.JobInfoAllCompanies ||
-  mongoose.model("JobInfoAllCompanies", jobInfoSchema, "JobInfoAllCompanies");
+  mongoose.model("JobInfoAllCompanies", jobInfoSchema);
 
 export default JobInfoAllCompanies;

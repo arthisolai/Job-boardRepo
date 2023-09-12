@@ -21,8 +21,8 @@ companySchema.index({
   industry: "text",
 });
 
-const companyDetails =
+const CompanyDetails =
   mongoose.models.CompanyDetails ||
-  mongoose.model("CompanyDetails", companySchema, "CompanyDetails");
+  mongoose.model("CompanyDetails", companySchema);
 
-export default companyDetails;
+export default CompanyDetails;

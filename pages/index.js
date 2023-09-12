@@ -3,7 +3,7 @@ import styled from "styled-components";
 import EmailForm from "../Components/EmailForm/EmailForm";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import styles from "../styles/index.module.css";
+import Image from "next/image";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -48,7 +48,7 @@ export default function Home({ searchQuery }) {
 
   // Fetch data using the dynamically created query string
   const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
-
+  console.log("Jobs========*******=========", jobs);
   // console.log(`Sending request to /api/Jobs?${queryString}`);
 
   // const { data: jobs, error } = useSWR(
@@ -214,6 +214,15 @@ export default function Home({ searchQuery }) {
                 href={`/Jobs/${job._id}`}
                 className="text-blue-600 hover:text-blue-800 transition duration-300"
               >
+                {/* Render the company logo */}
+                {job.CompanyInfo && (
+                  <Image
+                    src={job.CompanyInfo.companyLogo}
+                    alt={`${job.Company} Logo`}
+                    width={50}
+                    height={50}
+                  />
+                )}
                 <h2 className="font-bold">{job.Position}</h2>
               </Link>
               <p>{job.Company}</p>
