@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+import Company from "./Company";
+
 const jobInfoSchema = new Schema({
   Company: { type: String, required: true },
   Link: { type: String, required: true },
@@ -28,8 +30,8 @@ const jobInfoSchema = new Schema({
     Text: { type: [String] },
   },
   CompanyInfo: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CompanyDetails",
+    type: Schema.Types.ObjectId,
+    ref: "Company",
   },
 });
 
@@ -41,8 +43,6 @@ jobInfoSchema.index({
   JobType: "text",
 });
 
-const JobInfoAllCompanies =
-  mongoose.models.JobInfoAllCompanies ||
-  mongoose.model("JobInfoAllCompanies", jobInfoSchema);
+const Job = mongoose.models.Job || mongoose.model("Job", jobInfoSchema);
 
-export default JobInfoAllCompanies;
+export default Job;

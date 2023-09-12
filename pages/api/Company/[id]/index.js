@@ -1,5 +1,5 @@
 import dbConnect from "@/db/connect";
-import CompanyDetails from "@/db/CompanyDetails";
+import Company from "@/db/Company";
 
 export default async function handler(request, response) {
   try {
@@ -11,7 +11,7 @@ export default async function handler(request, response) {
       return;
     }
     if (request.method === "GET") {
-      const companies = await CompanyDetails.findById(id);
+      const companies = await Company.findById(id);
       // console.log("Companies:", companies);
 
       return response.status(200).json(companies);
