@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
+import Image from "next/image";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
@@ -19,6 +20,15 @@ export default function JobDetail() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md space-y-8">
+      {/* Render the company logo */}
+      {job.CompanyInfo && (
+        <Image
+          src={job.CompanyInfo.companyLogo}
+          alt={`${job.Company} Logo`}
+          width={50}
+          height={50}
+        />
+      )}
       <h1 className="text-3xl font-bold text-blue-600">{job.Position}</h1>
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-gray-700">Company</h3>
