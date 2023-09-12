@@ -10,7 +10,7 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "GET") {
-    const job = await Job.findById(id);
+    const job = await Job.findById(id).populate("CompanyInfo");
     return response.status(200).json(job);
   } else {
     return response.status(405).json({ message: "Method not allowed" });
