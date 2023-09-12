@@ -1,4 +1,4 @@
-import JobInfoAllCompanies from "@/db/JobInfoAllCompanies";
+import Job from "@/db/Job";
 import dbConnect from "@/db/connect";
 
 export default async function handler(request, response) {
@@ -30,13 +30,13 @@ export default async function handler(request, response) {
       }
       console.log("MongoDB filter:", filter);
 
-      // const testResults = await JobInfoAllCompanies.find({
+      // const testResults = await Job.find({
       //   Location: "Hamburg",
       // });
       // console.log("Test Results:", testResults);
 
-      const jobs = await JobInfoAllCompanies.find(filter);
-      // console.log("Jobs fetched:", jobs);
+      const jobs = await Job.find(filter).populate("CompanyInfo");
+      console.log("Jobs fetched:::::::::::::::::", jobs);
 
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });

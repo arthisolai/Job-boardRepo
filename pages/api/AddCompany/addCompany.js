@@ -3,7 +3,7 @@
 //---------------------------BASE 64--------------------------
 
 import dbConnect from "@/db/connect";
-import CompanyDetails from "@/db/CompanyDetails";
+import Company from "@/db/Company";
 
 export default async function handler(req, res) {
   try {
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     if (req.method === "POST") {
       const companyData = req.body;
-      const newCompany = await CompanyDetails.create(companyData);
+      const newCompany = await Company.create(companyData);
 
       if (newCompany) {
         res.status(201).json(newCompany);
