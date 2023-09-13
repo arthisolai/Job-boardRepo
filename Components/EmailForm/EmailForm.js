@@ -4,25 +4,6 @@ export default function UserForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const data = {
-  //     name: name,
-  //     email: email,
-  //   };
-  //   const response = await fetch("/api/SendEmail/Send", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  //   if (response.status === 200) {
-  //     setName("");
-  //     setEmail("");
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -30,7 +11,7 @@ export default function UserForm() {
       email: email,
     };
 
-    const sendEmailResponse = await fetch("/api/SendEmail/Send", {
+    const response = await fetch("/api/StoreEmail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,25 +19,12 @@ export default function UserForm() {
       body: JSON.stringify(data),
     });
 
-    if (sendEmailResponse.status === 200) {
-      const storeEmailResponse = await fetch("/api/StoreEmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: email }),
-      });
-
-      if (storeEmailResponse.status === 201) {
-        setName("");
-        setEmail("");
-      } else {
-        const errorData = await storeEmailResponse.json();
-        console.error("Error storing email:", errorData.message);
-      }
+    if (response.status === 201) {
+      setName("");
+      setEmail("");
     } else {
-      const errorData = await sendEmailResponse.json();
-      console.error("Error sending email:", errorData.message);
+      const errorData = await response.json();
+      console.error("Error:", errorData.message);
     }
   };
 
