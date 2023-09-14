@@ -1,6 +1,12 @@
 import Job from "@/db/Job";
 import dbConnect from "@/db/connect";
 
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+};
+
 export default async function handler(request, response) {
   await dbConnect();
   // console.log("Database connected");
