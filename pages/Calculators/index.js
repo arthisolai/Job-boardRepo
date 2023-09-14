@@ -1,6 +1,8 @@
 import PayParityCalculator from "@/Components/PayParityCalculator";
+import CzechTaxCalculator from "@/utils/CzechTaxCalculator";
 import GermanTaxCalculator from "@/utils/GermanyTaxCalculator";
 import NetherlandsTaxCalculator from "@/utils/NetherlandsTaxCalculator";
+import PortugalTaxCalculator from "@/utils/PortugalTaxCalculator";
 import SpainTaxCalculator from "@/utils/SpainTaxCalculator";
 import styled from "styled-components";
 
@@ -16,6 +18,8 @@ export default function Calculators() {
         <GermanTaxCalculator />
         <NetherlandsTaxCalculator />
         <SpainTaxCalculator />
+        <PortugalTaxCalculator />
+        <CzechTaxCalculator />
       </ContentContainer>
     </>
   );
