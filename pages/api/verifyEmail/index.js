@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       }
 
       emailEntry.isVerified = true;
-      emailEntry.verificationToken = undefined;
+
       await emailEntry.save();
       res.redirect("/verification-success");
     } catch (error) {
