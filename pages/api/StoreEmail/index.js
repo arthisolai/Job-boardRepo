@@ -23,14 +23,20 @@ export default async function handler(req, res) {
       const newEmail = new Email({
         email: req.body.email,
         verificationToken: token,
+        isSubscribed: true,
       });
       await newEmail.save();
 
       // Generate the verification link
       const verificationLink = `http://localhost:3000/api/verifyEmail?token=${token}`;
+
+      // Generate the unsubscribe link
+      const unsubscribeLink = `http://localhost:3000/api/unsubscribe?token=${token}`;
+
       const emailContent = EmailTemplate({
         firstName: req.body.name,
         verificationLink: verificationLink,
+        unsubscribeLink: unsubscribeLink,
       });
 
       const emailResponse = await resend.emails.send({
@@ -45,7 +51,7 @@ export default async function handler(req, res) {
       res.status(201).json({ success: true, data: newEmail });
     } catch (error) {
       console.error("Error:", error);
-      res.status(500).json({ success: false, message: "Server Error" });
+      res.status(500).json({ success: false, message: error.message });
     }
   } else {
     res.status(405).json({ success: false, message: "Method Not Allowed" });
