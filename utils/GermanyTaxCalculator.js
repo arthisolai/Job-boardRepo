@@ -118,6 +118,24 @@ export default function GermanTaxCalculator() {
           {monthlyNet.toFixed(2)}
         </p>
       </div>
+      <div className="mt-6">
+        <h2 className="text-2xl font-medium text-center mb-2">
+          Additional Information:
+        </h2>
+        <p className="text-sm mb-4">
+          A minimum base salary for Software Developers, DevOps, QA, and other
+          tech professionals in <span className="text-blue-500">Germany</span>{" "}
+          starts at <span className="text-blue-500">€ 40000 </span>per year. At
+          the same time, more leading roles like Software Architect, Team Lead,
+          Tech Lead, or Engineering Manager can bring you a gross annual income
+          of <span className="text-blue-500">€ 90000</span> without bonuses.
+        </p>
+
+        <p className="text-xs text-gray-500">
+          The figures are imprecise and reflect the approximate salary range for
+          tech professionals in this country.
+        </p>
+      </div>
     </div>
   );
 }
