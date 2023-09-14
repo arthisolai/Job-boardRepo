@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function GermanTaxCalculator() {
-  const [income, setIncome] = useState(0);
+  const [income, setIncome] = useState(15000);
   const [taxClass, setTaxClass] = useState("1");
   const [annualNet, setAnnualNet] = useState(0);
   const [monthlyNet, setMonthlyNet] = useState(0);
@@ -68,12 +68,17 @@ export default function GermanTaxCalculator() {
             Annual Income:
           </label>
           <input
-            type="number"
+            type="range" // Use range input type
             id="income"
             className="p-2 border rounded-md"
+            min="15000" // Minimum value
+            max="150000" // Maximum value
+            step="1000" // Step increment
             value={income}
             onChange={(e) => setIncome(parseFloat(e.target.value))}
           />
+          {/* Display the income value */}
+          <span className="text-center">€ {income.toFixed(0)}</span>
         </div>
 
         <div className="flex flex-col space-y-2">
