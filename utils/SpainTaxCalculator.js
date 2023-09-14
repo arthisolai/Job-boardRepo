@@ -52,17 +52,21 @@ export default function SpainTaxCalculator() {
             Annual Income:
           </label>
           <input
-            type="number"
+            type="range"
             id="income"
             className="p-2 border rounded-md"
+            min="15000"
+            max="150000"
+            step="1000"
             value={income}
-            onChange={(e) => setIncome(parseFloat(e.target.value))}
+            onChange={(e) => setIncome(parseInt(e.target.value))}
           />
+          <output htmlFor="income">{income} €</output>
         </div>
       </form>
 
       <div className="mt-6">
-        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        {/* <h2 className="text-2xl font-medium text-center mb-4">Results:</h2> */}
         <p className="text-lg mb-2">
           <span className="font-medium">Annual Net Income:</span> €
           {netIncome.annualNet}
@@ -70,6 +74,23 @@ export default function SpainTaxCalculator() {
         <p className="text-lg">
           <span className="font-medium">Monthly Net Income:</span> €
           {netIncome.monthlyNet}
+        </p>
+      </div>
+      <div className="mt-8 text-gray-600">
+        <h2 className="text-m font-medium mb-4">Salary Information:</h2>
+        <p className="text-sm mb-4">
+          A minimum base salary for Software Developers, DevOps, QA, and other
+          tech professionals in{" "}
+          <span className="text-blue-500 font-bold">Spain</span>starts at{" "}
+          <span className="text-blue-500 font-bold">€ 19000</span> per year. At
+          the same time, more leading roles like Software Architect, Team Lead,
+          Tech Lead, or Engineering Manager can bring you a gross annual income
+          of <span className="text-blue-500 font-bold">€ 55000</span> without
+          bonuses.
+        </p>
+        <p className="text-xs text-gray-500">
+          (Note: The figures are imprecise and reflect the approximate salary
+          range for tech professionals in this country.)
         </p>
       </div>
     </div>

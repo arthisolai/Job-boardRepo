@@ -36,7 +36,9 @@ export default function NetherlandsTaxCalculator() {
     if (maritalStatus === "married") {
       taxableIncome = income * 0.7;
     }
-
+    if (isRulingApplied) {
+      taxableIncome = income * 0.7;
+    }
     const taxAmount = calculateTax(
       taxableIncome,
       maritalStatus,
@@ -46,7 +48,7 @@ export default function NetherlandsTaxCalculator() {
 
     setNetIncome(parseFloat(net.toFixed(2)));
     setMonthlyNetIncome((net / 12).toFixed(2));
-  }, [income, maritalStatus, numberOfChildren]);
+  }, [income, maritalStatus, numberOfChildren, isRulingApplied]);
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-md">
@@ -60,12 +62,16 @@ export default function NetherlandsTaxCalculator() {
             Annual Income:
           </label>
           <input
-            type="number"
+            type="range"
             id="income"
             className="p-2 border rounded-md"
+            min="15000"
+            max="150000"
+            step="1000" // Adjust this step value as needed
             value={income}
-            onChange={(e) => setIncome(parseFloat(e.target.value))}
+            onChange={(e) => setIncome(parseInt(e.target.value))}
           />
+          <output htmlFor="income">{income} €</output>
         </div>
 
         <div className="flex flex-col space-y-2">
@@ -117,7 +123,7 @@ export default function NetherlandsTaxCalculator() {
       </form>
 
       <div className="mt-6">
-        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        {/* <h2 className="text-2xl font-medium text-center mb-4">Results:</h2> */}
         <p className="text-lg mb-2">
           <span className="font-medium">Annual Net Income:</span> €{netIncome}
         </p>
@@ -126,65 +132,25 @@ export default function NetherlandsTaxCalculator() {
           {monthlyNetIncome}
         </p>
       </div>
+      <div className="mt-8 text-gray-600">
+        <h2 className="text-m font-medium mb-4">Salary Information:</h2>
+        <p className="text-sm mb-4">
+          A minimum base salary for Software Developers, DevOps, QA, and other
+          tech professionals in The{" "}
+          <span className="text-blue-500 font-bold">Netherlands</span> starts at{" "}
+          <span className="text-blue-500 font-bold">€ 40000</span> per year.
+        </p>
+        <p className="text-sm mb-4">
+          At the same time, more leading roles like Software Architect, Team
+          Lead, Tech Lead, or Engineering Manager can bring you a gross annual
+          income of <span className="text-blue-500 font-bold">€ 90000</span>{" "}
+          without bonuses.
+        </p>
+        <p className="text-xs text-gray-500">
+          (Note: These figures are imprecise and reflect the approximate salary
+          range for tech professionals in this country.)
+        </p>
+      </div>
     </div>
   );
 }
-//   const [income, setIncome] = useState(0);
-//   const [isRulingApplied, setIsRulingApplied] = useState(false);
-//   const [netIncome, setNetIncome] = useState(0);
-//   const [monthlyNetIncome, setMonthlyNetIncome] = useState(0);
-
-//   useEffect(() => {
-//     function calculateTax(income) {
-//       let tax = 0;
-//       if (income <= 68507) {
-//         tax = income * 0.371;
-//       } else {
-//         tax = 68507 * 0.371 + (income - 68507) * 0.495;
-//       }
-//       return tax;
-//     }
-
-//     let taxableIncome = income;
-//     if (isRulingApplied) {
-//       taxableIncome = income * 0.7;
-//     }
-
-//     const taxAmount = calculateTax(taxableIncome);
-//     const net = income - taxAmount;
-
-//     setNetIncome(parseFloat(net.toFixed(2)));
-//     setMonthlyNetIncome((net / 12).toFixed(2));
-//   }, [income, isRulingApplied]);
-
-//   return (
-//     <div>
-//       <h1>Netherlands Tax Calculator</h1>
-//       <form>
-//         <div>
-//           <label>Annual Income: </label>
-//           <input
-//             type="number"
-//             value={income}
-//             onChange={(e) => setIncome(parseFloat(e.target.value))}
-//           />
-//         </div>
-//         <div>
-//           <label>
-//             <input
-//               type="checkbox"
-//               checked={isRulingApplied}
-//               onChange={() => setIsRulingApplied(!isRulingApplied)}
-//             />
-//             Apply 30% ruling
-//           </label>
-//         </div>
-//       </form>
-//       <div>
-//         <h2>Results:</h2>
-//         <p>Annual Net Income: €{netIncome}</p>
-//         <p>Monthly Net Income: €{monthlyNetIncome}</p>
-//       </div>
-//     </div>
-//   );
-// }

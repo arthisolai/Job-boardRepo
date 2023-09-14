@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function GermanTaxCalculator() {
-  const [income, setIncome] = useState(0);
+  const [income, setIncome] = useState(15000);
   const [taxClass, setTaxClass] = useState("1");
   const [annualNet, setAnnualNet] = useState(0);
   const [monthlyNet, setMonthlyNet] = useState(0);
@@ -68,12 +68,17 @@ export default function GermanTaxCalculator() {
             Annual Income:
           </label>
           <input
-            type="number"
+            type="range" // Use range input type
             id="income"
             className="p-2 border rounded-md"
+            min="15000" // Minimum value
+            max="150000" // Maximum value
+            step="1000" // Step increment
             value={income}
             onChange={(e) => setIncome(parseFloat(e.target.value))}
           />
+          {/* Display the income value */}
+          <span className="text-center">€ {income.toFixed(0)}</span>
         </div>
 
         <div className="flex flex-col space-y-2">
@@ -103,7 +108,7 @@ export default function GermanTaxCalculator() {
       </form>
 
       <div className="mt-6">
-        <h2 className="text-2xl font-medium text-center mb-4">Results:</h2>
+        {/* <h2 className="text-2xl font-medium text-center mb-4">Results:</h2> */}
         <p className="text-lg mb-2">
           <span className="font-medium">Annual Net Income:</span> €
           {annualNet.toFixed(2)}
@@ -111,6 +116,24 @@ export default function GermanTaxCalculator() {
         <p className="text-lg">
           <span className="font-medium">Monthly Net Income:</span> €
           {monthlyNet.toFixed(2)}
+        </p>
+      </div>
+      <div className="mt-6 text-gray-600">
+        <h2 className="text-m font-medium mb-4">Salary Information:</h2>
+        <p className="text-sm mb-4">
+          A minimum base salary for Software Developers, DevOps, QA, and other
+          tech professionals in{" "}
+          <span className="text-blue-500 font-bold">Germany</span> starts at{" "}
+          <span className="text-blue-500 font-bold">€ 40000 </span>per year. At
+          the same time, more leading roles like Software Architect, Team Lead,
+          Tech Lead, or Engineering Manager can bring you a gross annual income
+          of <span className="text-blue-500 font-bold">€ 90000</span> without
+          bonuses.
+        </p>
+
+        <p className="text-xs text-gray-500">
+          (Note: The figures are imprecise and reflect the approximate salary
+          range for tech professionals in this country.)
         </p>
       </div>
     </div>
