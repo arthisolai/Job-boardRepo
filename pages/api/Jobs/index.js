@@ -1,12 +1,6 @@
 import Job from "@/db/Job";
 import dbConnect from "@/db/connect";
 
-export const config = {
-  api: {
-    responseLimit: false,
-  },
-};
-
 export default async function handler(request, response) {
   await dbConnect();
   // console.log("Database connected");
@@ -56,3 +50,9 @@ export default async function handler(request, response) {
     response.status(405).json({ message: "Method not allowed" });
   }
 }
+
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+};
