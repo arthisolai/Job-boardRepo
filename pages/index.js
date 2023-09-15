@@ -12,18 +12,6 @@ const ContentContainer = styled.div`
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 export default function Home({ searchQuery }) {
-  // const { data, error } = useSWR("/api/parity", { fallbackData: [] });
-  // if (error) {
-  //   console.error("Error fetching data:", error);
-  //   // Handle the error, e.g., display an error message to the user
-  //   return <div>Error fetching data</div>;
-  // }
-
-  // if (!data) {
-  //   // Data is still loading
-  //   return <div>Loading...</div>;
-  // }
-
   const [country, setCountry] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
@@ -31,35 +19,28 @@ export default function Home({ searchQuery }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 10;
-  // console.log("Received searchQuery:", searchQuery);
 
-  // console.log("Component re-rendered");
-  // Create the query string based on the current state values
   const queryString = [
     country && `Location=${country}`,
     department && `Department=${department}`,
     title && `Position=${title}`,
     company && `Company=${company}`,
     searchQuery && `query=${searchQuery}`,
+    `currentPage=${currentPage}`,
+    `jobsPerPage=${jobsPerPage}`,
   ]
     .filter(Boolean)
     .join("&");
-  // console.log("Query string:", queryString);
 
-  // Fetch data using the dynamically created query string
-  const { data: jobs, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
-  console.log("Jobs========*******=========", jobs);
-  // console.log(`Sending request to /api/Jobs?${queryString}`);
+  const { data: jobsData, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
+  console.log("Jobs========*******=========", jobsData);
 
-  // const { data: jobs, error } = useSWR(
-  //   `/api/Jobs?country=${country}&department=${department}&title=${title}&query=${searchQuery}`,
-  //   fetcher
-  // );
+  const jobs = jobsData ? jobsData.jobs : null;
+  const totalJobs = jobsData ? jobsData.totalJobs : 0;
+
+  const totalPages = Math.ceil(totalJobs / jobsPerPage);
+
   const { data: filters } = useSWR("/api/JobFilters", fetcher);
-
-  // console.log("Filters:", filters);
-
-  // console.log("Fetched jobs:", jobs);
 
   useEffect(() => {
     console.log("useEffect triggered", country, department, title, searchQuery);
@@ -80,19 +61,13 @@ export default function Home({ searchQuery }) {
   if (!jobs || !filters) {
     return <div>Loading...</div>;
   }
-  const totalPages = Math.ceil(jobs.length / jobsPerPage);
 
   // Get current jobs
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  // const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  let currentJobs = [];
-  if (Array.isArray(jobs)) {
-    currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
-  }
-  // console.log("Current jobs:", currentJobs);
-  // Change page
+  const currentJobs = jobs;
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -108,8 +83,6 @@ export default function Home({ searchQuery }) {
           </h2>
         </div>
 
-        {/* <select value={country} onChange={(e) => setCountry(e.target.value) }>
-         */}
         <div className="flex justify-center w-full mt-8 mb-8">
           <div className="flex items-center space-x-4 bg-white p-4 rounded-md shadow">
             {/* Country Filter */}
@@ -164,31 +137,6 @@ export default function Home({ searchQuery }) {
                 ))}
               </select>
             </div>
-
-            {/* Title Filter */}
-            {/* <div className="flex flex-col mb-2 w-full sm:w-1/3">
-            <label
-              htmlFor="title"
-              className="text-sm font-medium text-gray-700 mb-1"
-            >
-              Title
-            </label>
-            <select
-              id="title"
-              className="p-2 border rounded-md w-full"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            >
-              <option value="" disabled>
-                Select Title
-              </option>
-              {filters.titles.map((title) => (
-                <option key={title} value={title}>
-                  {title}
-                </option>
-              ))}
-            </select>
-          </div> */}
 
             {/* Reset Button */}
             <div className="flex flex-col">

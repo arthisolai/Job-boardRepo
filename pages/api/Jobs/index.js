@@ -7,7 +7,14 @@ export default async function handler(request, response) {
 
   if (request.method === "GET") {
     try {
-      const { Location, Department, Position, query } = request.query;
+      const {
+        Location,
+        Department,
+        Position,
+        query,
+        currentPage,
+        jobsPerPage,
+      } = request.query;
 
       // console.log("Country:", country);
 
@@ -30,23 +37,20 @@ export default async function handler(request, response) {
       }
       console.log("MongoDB filter:", filter);
 
-      // const testResults = await Job.find({
-      //   Location: "Hamburg",
-      // });
-      // console.log("Test Results:", testResults);
+      const skip = (currentPage - 1) * jobsPerPage;
 
-      // const jobs = await Job.find(filter).populate("CompanyInfo");
-
+      const totalJobs = await Job.countDocuments(filter);
       const jobs = await Job.find(filter)
         .populate("CompanyInfo", "companyLogo")
-        .limit(10);
+        .skip(skip)
+        .limit(jobsPerPage);
 
       console.log("Jobs fetched:::::::::::::::::", jobs);
 
       if (!jobs || jobs.length === 0) {
         return response.status(404).json({ message: "No jobs found" });
       }
-      response.status(200).json(jobs);
+      response.status(200).json({ jobs, totalJobs });
     } catch (error) {
       console.error("Error fetching jobs:", error);
       response.status(500).json({ message: "Internal Server Error" });
