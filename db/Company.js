@@ -14,12 +14,12 @@ const companySchema = new Schema({
   companyLogo: { type: String },
 });
 
-// companySchema.index({
-//   companyName: "text",
-//   country: "text",
-//   city: "text",
-//   industry: "text",
-// });
+companySchema.index({
+  companyName: "text",
+  country: "text",
+  city: "text",
+  industry: "text",
+});
 
 const Company =
   mongoose.models.Company || mongoose.model("Company", companySchema);

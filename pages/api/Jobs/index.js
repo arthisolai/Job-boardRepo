@@ -14,6 +14,7 @@ export default async function handler(request, response) {
         query,
         currentPage,
         jobsPerPage,
+        company,
       } = request.query;
 
       // console.log("Country:", country);
@@ -27,6 +28,7 @@ export default async function handler(request, response) {
       console.log("MongoDB filter:", filter);
       if (Department) filter["Department"] = Department;
       if (Position) filter["Position"] = Position;
+      if (company) filter["CompanyInfo"] = company;
       if (query) {
         filter["$or"] = [
           { Company: new RegExp(query, "i") },
