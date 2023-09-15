@@ -35,7 +35,14 @@ export default async function handler(request, response) {
       // });
       // console.log("Test Results:", testResults);
 
-      const jobs = await Job.find(filter).populate("CompanyInfo");
+      // const jobs = await Job.find(filter).populate("CompanyInfo");
+      const jobs = await Job.find(filter)
+        .populate({
+          CompanyInfo: {
+            companyLogo: 1,
+          },
+        })
+        .limit(10);
       console.log("Jobs fetched:::::::::::::::::", jobs);
 
       if (!jobs || jobs.length === 0) {
