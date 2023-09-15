@@ -40,6 +40,7 @@ export default async function handler(request, response) {
       const jobs = await Job.find(filter)
         .populate("CompanyInfo", "companyLogo")
         .limit(10);
+
       console.log("Jobs fetched:::::::::::::::::", jobs);
 
       if (!jobs || jobs.length === 0) {
