@@ -33,7 +33,7 @@ export default function Home({ searchQuery }) {
     .join("&");
 
   const { data: jobsData, error } = useSWR(`/api/Jobs?${queryString}`, fetcher);
-  console.log("Jobs========*******=========", jobs);
+  console.log("Jobs========*******=========", jobsData);
 
   const jobs = jobsData ? jobsData.jobs : null;
   const totalJobs = jobsData ? jobsData.totalJobs : 0;
@@ -66,10 +66,7 @@ export default function Home({ searchQuery }) {
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
 
-  let currentJobs = [];
-  if (Array.isArray(jobs)) {
-    currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
-  }
+  const currentJobs = jobs;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
