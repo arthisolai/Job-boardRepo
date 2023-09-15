@@ -2,14 +2,18 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState } from "react";
 
 const ContentContainer = styled.div`
   /* margin-top: 80px; */
 `;
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
+const defaultPage = 1;
+const defaultJobsPerPage = 10; // or any other value you prefer
 
 export default function CompanyDetails() {
+  const [currentPage, setCurrentPage] = useState(defaultPage);
   const router = useRouter();
   const { id } = router.query;
 
@@ -19,9 +23,12 @@ export default function CompanyDetails() {
   );
 
   const { data: jobs, error: jobsError } = useSWR(
-    id ? `/api/Jobs?company=${id}` : null,
+    id
+      ? `/api/Jobs?company=${id}&currentPage=${currentPage}&jobsPerPage=${defaultJobsPerPage}`
+      : null,
     fetcher
   );
+
   console.log("Jobs data:", jobs);
 
   const filteredJobs = jobs?.jobs || [];
@@ -33,6 +40,14 @@ export default function CompanyDetails() {
   if (error) return <div>Failed to load</div>;
   if (!company) return <div>Loading...</div>;
   // console.log(company);
+
+  const totalPages = Math.ceil(jobs?.totalJobs / defaultJobsPerPage);
+
+  const handlePageChange = (newPage) => {
+    if (newPage <= 0) return; // Don't allow pages less than 1
+    if (newPage > Math.ceil(totalPages)) return; // Don't go past the total number of pages
+    setCurrentPage(newPage);
+  };
 
   return (
     <ContentContainer className="flex flex-col items-center w-full mx-auto px-3 md:px-6 lg:px-8 space-y-6 overflow-x-hidden max-w-screen-xl">
@@ -103,6 +118,29 @@ export default function CompanyDetails() {
         ) : (
           <div className="text-center font-medium">Loading jobs...</div>
         )}
+      </div>
+      <div className="flex items-center justify-center space-x-4 mt-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+            currentPage === 1 ? "cursor-not-allowed bg-gray-300" : ""
+          }`}
+        >
+          Previous
+        </button>
+        <span className="text-lg">
+          {totalPages ? `Page ${currentPage} of ${totalPages}` : "Loading..."}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+            currentPage === totalPages ? "cursor-not-allowed bg-gray-300" : ""
+          }`}
+        >
+          Next
+        </button>
       </div>
     </ContentContainer>
   );
