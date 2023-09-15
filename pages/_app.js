@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import Header from "@/Components/Header/Header.js";
-import JobBoard from "./Jobs";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
