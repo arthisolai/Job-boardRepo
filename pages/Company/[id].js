@@ -22,11 +22,13 @@ export default function CompanyDetails() {
     id ? `/api/Jobs?company=${id}` : null,
     fetcher
   );
+  console.log("Jobs data:", jobs);
 
-  const filteredJobs =
-    jobs && company
-      ? jobs.filter((job) => job.Company === company.companyName)
-      : [];
+  const filteredJobs = jobs?.jobs || [];
+
+  console.log("filteredJobs length:", filteredJobs.length);
+
+  if (jobsError) return <div>Error loading jobs</div>;
 
   if (error) return <div>Failed to load</div>;
   if (!company) return <div>Loading...</div>;
