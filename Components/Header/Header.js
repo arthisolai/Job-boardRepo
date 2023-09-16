@@ -140,14 +140,14 @@ export default function Header({ onSearch }) {
       </div> */}
       <nav>
         <ul className="flex space-x-4">
-          {/* <li>
+          <li>
             <Link
-              href="/Jobs"
+              href="/Country"
               className="cursor-pointer hover:text-blue-500 transition duration-300"
             >
-              Jobs
+              Country
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link
               href="/Company"
