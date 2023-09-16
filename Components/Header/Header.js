@@ -88,7 +88,7 @@ export default function Header({ onSearch }) {
           width={50}
           height={50}
         />
-        <h1 className="text-2xl font-bold">GetGlobal</h1>
+        <h1 className="text-3xl font-bold">GetGlobal</h1>
       </div>
       <div className="p-4">
         <label

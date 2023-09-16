@@ -57,84 +57,98 @@ export default function GermanTaxCalculator() {
   }, [income, taxClass]);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-md">
-      <h1 className="text-3xl font-bold text-center mb-4">
-        German Tax Calculator
-      </h1>
-
-      <form className="space-y-4">
-        <div className="flex flex-col space-y-2">
-          <label className="font-medium text-gray-700" htmlFor="income">
-            Annual Income:
-          </label>
-          <input
-            type="range" // Use range input type
-            id="income"
-            className="p-2 border rounded-md"
-            min="15000" // Minimum value
-            max="150000" // Maximum value
-            step="1000" // Step increment
-            value={income}
-            onChange={(e) => setIncome(parseFloat(e.target.value))}
-          />
-          {/* Display the income value */}
-          <span className="text-center">€ {income.toFixed(0)}</span>
+    <div className=" mx-8 p-4 bg-white shadow-lg rounded-md border border-gray-300">
+      <div className=" flex flex-row">
+        {/* Left side */}
+        <div className="w-1/2 p-4">
+          <h1 className="text-3xl font-bold text-center mb-4">
+            How much could you make in Germany?
+          </h1>
+          <p className="text-lg mb-4">Net Salary calculator for Germany.</p>
+          <p className="text-lg">
+            Wondering how much money you would earn in a different country?
+            You’re in the right place.
+          </p>
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <label className="font-medium text-gray-700" htmlFor="taxClass">
-            Tax Class:
-          </label>
-          <select
-            id="taxClass"
-            className="p-2 border rounded-md"
-            value={taxClass}
-            onChange={(e) => setTaxClass(e.target.value)}
-          >
-            <option value="I">TaxClass 1 - Single</option>
-            <option value="II">TaxClass 2 - Single with child</option>
-            <option value="III">
-              TaxClass 3 - Married (Higher-earning spouse)
-            </option>
-            <option value="IV">
-              TaxClass 4 - Married (Both spouses earn similarly)
-            </option>
-            <option value="V">
-              TaxClass 5 - Married (Lower-earning spouse)
-            </option>
-            <option value="VI">TaxClass 6 - Secondary Income</option>
-          </select>
+        {/* Right side */}
+        <div className="w-1/2 p-4">
+          <form className="space-y-4">
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium text-gray-700" htmlFor="income">
+                Annual Income:
+              </label>
+              <input
+                type="range" // Use range input type
+                id="income"
+                className="p-2 border rounded-md"
+                min="15000" // Minimum value
+                max="150000" // Maximum value
+                step="1000" // Step increment
+                value={income}
+                onChange={(e) => setIncome(parseFloat(e.target.value))}
+              />
+              {/* Display the income value */}
+              <span className="text-center">€ {income.toFixed(0)}</span>
+            </div>
+
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium text-gray-700" htmlFor="taxClass">
+                Tax Class:
+              </label>
+              <select
+                id="taxClass"
+                className="p-2 border rounded-md"
+                value={taxClass}
+                onChange={(e) => setTaxClass(e.target.value)}
+              >
+                <option value="I">TaxClass 1 - Single</option>
+                <option value="II">TaxClass 2 - Single with child</option>
+                <option value="III">
+                  TaxClass 3 - Married (Higher-earning spouse)
+                </option>
+                <option value="IV">
+                  TaxClass 4 - Married (Both spouses earn similarly)
+                </option>
+                <option value="V">
+                  TaxClass 5 - Married (Lower-earning spouse)
+                </option>
+                <option value="VI">TaxClass 6 - Secondary Income</option>
+              </select>
+            </div>
+          </form>
+
+          <div className="mt-6">
+            {/* <h2 className="text-2xl font-medium text-center mb-4">Results:</h2> */}
+            <p className="text-lg mb-2">
+              <span className="font-medium">Annual Net Income:</span> €
+              {annualNet.toFixed(2)}
+            </p>
+            <p className="text-lg">
+              <span className="font-medium">Monthly Net Income:</span> €
+              {monthlyNet.toFixed(2)}
+            </p>
+          </div>
+          <div className="mt-6 text-gray-600">
+            <h2 className="text-m font-medium mb-4">Salary Information:</h2>
+            <p className="text-sm mb-4">
+              A minimum base salary for Software Developers, DevOps, QA, and
+              other tech professionals in{" "}
+              <span className="text-blue-500 font-bold">Germany</span> starts at{" "}
+              <span className="text-blue-500 font-bold">€ 40000 </span>per year.
+              At the same time, more leading roles like Software Architect, Team
+              Lead, Tech Lead, or Engineering Manager can bring you a gross
+              annual income of{" "}
+              <span className="text-blue-500 font-bold">€ 90000</span> without
+              bonuses.
+            </p>
+
+            <p className="text-xs text-gray-500">
+              (Note: The figures are imprecise and reflect the approximate
+              salary range for tech professionals in this country.)
+            </p>
+          </div>
         </div>
-      </form>
-
-      <div className="mt-6">
-        {/* <h2 className="text-2xl font-medium text-center mb-4">Results:</h2> */}
-        <p className="text-lg mb-2">
-          <span className="font-medium">Annual Net Income:</span> €
-          {annualNet.toFixed(2)}
-        </p>
-        <p className="text-lg">
-          <span className="font-medium">Monthly Net Income:</span> €
-          {monthlyNet.toFixed(2)}
-        </p>
-      </div>
-      <div className="mt-6 text-gray-600">
-        <h2 className="text-m font-medium mb-4">Salary Information:</h2>
-        <p className="text-sm mb-4">
-          A minimum base salary for Software Developers, DevOps, QA, and other
-          tech professionals in{" "}
-          <span className="text-blue-500 font-bold">Germany</span> starts at{" "}
-          <span className="text-blue-500 font-bold">€ 40000 </span>per year. At
-          the same time, more leading roles like Software Architect, Team Lead,
-          Tech Lead, or Engineering Manager can bring you a gross annual income
-          of <span className="text-blue-500 font-bold">€ 90000</span> without
-          bonuses.
-        </p>
-
-        <p className="text-xs text-gray-500">
-          (Note: The figures are imprecise and reflect the approximate salary
-          range for tech professionals in this country.)
-        </p>
       </div>
     </div>
   );
