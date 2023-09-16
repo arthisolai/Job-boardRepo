@@ -78,19 +78,24 @@ export default function Company() {
         {countries.map((country) => (
           <Card key={country._id}>
             <ImageContainer>
-              <div className="relative w-64 h-80 rounded-t-lg overflow-hidden">
-                <Image
-                  src={country.image}
-                  alt={`${country.country} flag`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-lg"
-                />
-              </div>
+              <Link
+                href={`/Country/${country._id}`}
+                className="text-blue-600 hover:text-blue-800 transition duration-300"
+              >
+                <div className="relative w-64 h-80 rounded-t-lg overflow-hidden">
+                  <Image
+                    src={country.image}
+                    alt={`${country.country} flag`}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-lg"
+                  />
+                </div>
+              </Link>
             </ImageContainer>
             <CountryName>
               <Link
-                href={`/company/${country._id}`}
+                href={`/Country/${country._id}`}
                 className="text-blue-600 hover:text-blue-800 transition duration-300"
               >
                 <h1 className="text-xl font-bold mb-3">{country.country}</h1>
