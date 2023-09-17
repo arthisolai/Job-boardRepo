@@ -3,6 +3,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 const ContentContainer = styled.div`
   /* margin-top: 80px; */
@@ -53,20 +54,36 @@ export default function CompanyDetails() {
     <ContentContainer className="flex flex-col items-center w-full mx-auto px-3 md:px-6 lg:px-8 space-y-6 overflow-x-hidden max-w-screen-xl">
       {/* Company details on top */}
       <div className="self-center space-y-3 w-full mx-2 p-5 rounded-md bg-gray-50 border border-gray-200 shadow-sm">
-        <h1 className="text-3xl font-bold mb-2">{company.companyName}</h1>
-        <div className="flex space-x-3 mb-3">
-          <a
-            href={company.companyURL}
-            className="text-blue-600 hover:underline"
-          >
-            Company Website
-          </a>
-          <a
-            href={company.careersURL}
-            className="text-blue-600 hover:underline"
-          >
-            Career Website
-          </a>
+        <div className="flex items-center space-x-4">
+          <div className="relative w-32 h-24 rounded-full overflow-hidden">
+            <Image
+              src={
+                company.companyLogo.startsWith("data:")
+                  ? company.companyLogo
+                  : `data:image/png;base64,${company.companyLogo}`
+              }
+              alt={`${company.companyName} logo`}
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold mb-2">{company.companyName}</h1>
+            <div className="flex space-x-3 mb-3">
+              <a
+                href={company.companyURL}
+                className="text-blue-600 hover:underline"
+              >
+                Company Website
+              </a>
+              <a
+                href={company.careersURL}
+                className="text-blue-600 hover:underline"
+              >
+                Career Website
+              </a>
+            </div>
+          </div>
         </div>
         <p className="font-medium">About Company:</p>
         <p>{company.aboutCompany}</p>
@@ -105,6 +122,18 @@ export default function CompanyDetails() {
                     href={`/Jobs/${job._id}`}
                     className="text-blue-600 hover:text-blue-800 transition duration-300"
                   >
+                    {/* Company Logo */}
+                    {job.CompanyInfo && (
+                      <div>
+                        <Image
+                          src={job.CompanyInfo.companyLogo}
+                          alt={`${job.Company} Logo`}
+                          width={24}
+                          height={16}
+                          className="md:w-24 md:h-16"
+                        />
+                      </div>
+                    )}
                     <h2 className="font-bold">{job.Position}</h2>
                   </Link>
                   <p>{job.Company}</p>

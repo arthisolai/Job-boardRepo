@@ -40,7 +40,7 @@ export default function Company() {
                 }
                 alt={`${company.companyName} logo`}
                 layout="fill"
-                objectFit="cover"
+                objectFit="contain"
               />
             </div>
             <Link
