@@ -75,7 +75,7 @@ export default function UserForm() {
               </div>
               <button
                 type="submit"
-                className="p-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+                className="p-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 rounded-md"
               >
                 Signup for Free
               </button>

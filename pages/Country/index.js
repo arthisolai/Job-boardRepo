@@ -85,7 +85,7 @@ export default function Company() {
                 <div className="relative w-64 h-80 rounded-t-lg overflow-hidden">
                   <Image
                     src={country.image}
-                    alt={`${country.country} flag`}
+                    alt={country.country}
                     layout="fill"
                     objectFit="cover"
                     className="rounded-t-lg"
