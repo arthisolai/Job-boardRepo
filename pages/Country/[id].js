@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
-import GermanTaxCalculator from "@/utils/GermanyTaxCalculator"; // Assuming GermanyTaxCalculator is a component
+import GermanTaxCalculator from "@/utils/GermanyTaxCalculator";
+import SpainTaxCalculator from "@/utils/SpainTaxCalculator";
+import NetherlandsTaxCalculator from "@/utils/NetherlandsTaxCalculator";
+import PortugalTaxCalculator from "@/utils/PortugalTaxCalculator";
+import CzechTaxCalculator from "@/utils/CzechTaxCalculator";
 import Image from "next/image";
 
 const PageContainer = styled.div`
@@ -23,6 +27,14 @@ const fetcher = async (url) => {
   }
 };
 
+const countryCalculators = {
+  germany: <GermanTaxCalculator />,
+  netherlands: <NetherlandsTaxCalculator />,
+  portugal: <PortugalTaxCalculator />,
+  spain: <SpainTaxCalculator />,
+  czech: <CzechTaxCalculator />,
+};
+
 export default function CountryDetail() {
   const router = useRouter();
   const { id } = router.query;
@@ -39,14 +51,24 @@ export default function CountryDetail() {
 
   if (!country) return <div>Loading...</div>;
 
+  // Extract the country name as a lowercase string
+  const countryName = country.country.toLowerCase();
+
+  // Check if the selected country has a corresponding calculator
+  const selectedCalculator = countryCalculators[countryName];
+
+  if (!selectedCalculator) {
+    return <div>Calculator not found for {countryName}</div>;
+  }
+
   return (
     <PageContainer>
       <div className="mt-4 mb-32 mx-8">
         <h1 className="text-2xl font-bold mb-4">Explore {country.country}</h1>
         <p className="text-lg mb-4">{country.intro}</p>
       </div>
-      <div className="flex flex-col items-center mb-8">
-        <div className="flex justify-center items-center h-40 w-full mb-40">
+      <div className="flex flex-col items-center mb-48">
+        <div className="flex justify-center items-center h-48 w-full mb-40">
           <Image
             src={country.infoImage}
             alt={country.country}
@@ -80,7 +102,11 @@ export default function CountryDetail() {
           </div>
         </div>
       </div>
-      <GermanTaxCalculator />
+      <div className="flex flex-col items-center mb-16">
+        <div className="flex justify-center items-center h-40 w-full mb-40">
+          {selectedCalculator}
+        </div>
+      </div>
     </PageContainer>
   );
 }
