@@ -204,7 +204,9 @@ export default function Home({ searchQuery }) {
             Next
           </button>
         </div>
-        <EmailForm />
+        <div className="flex items-center justify-center mt-4">
+          <EmailForm />
+        </div>
       </ContentContainer>
     </>
   );
