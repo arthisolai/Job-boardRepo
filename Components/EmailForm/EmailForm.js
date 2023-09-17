@@ -44,12 +44,14 @@ export default function UserForm() {
 
   return (
     <div className="relative">
-      {isSuccess && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-          <strong className="font-bold">Success!</strong> Email successfully
-          sent.
-        </div>
-      )}
+      <div className="text-center">
+        {isSuccess && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mx-auto max-w-xs">
+            <strong className="font-bold">Success!</strong> Email successfully
+            sent.
+          </div>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit}>
         <Image
