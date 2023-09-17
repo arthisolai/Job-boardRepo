@@ -73,14 +73,28 @@ export default function Home({ searchQuery }) {
   return (
     <>
       <ContentContainer>
-        <div className="text-center font-sans">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Get Global with Your Tech Career
-          </h1>
-          <h2 className="text-2xl md:text-3xl text-gray-600 mx-4 md:mx-8 lg:mx-16">
-            Find Tech Roles Offering Visa & Relocation Support, Explore 150
-            Curated Tech Jobs from 10 Diverse Countries Across the Globe
-          </h2>
+        <div className="relative text-center font-sans">
+          {/* Image overlapping */}
+          {/* <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/landingPageImage.jpg"
+              alt="Background Image"
+              // layout="fill"
+              width={1920} // Set to the original image width
+              height={1080} // Set to the original image height
+            />
+          </div> */}
+
+          {/* Content */}
+          <div className="relative z-10">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              Get Global with Your Tech Career
+            </h1>
+            <h2 className="text-2xl md:text-3xl text-gray-600 mx-4 md:mx-8 lg:mx-16">
+              Find Tech Roles Offering Visa & Relocation Support, Explore 150
+              Curated Tech Jobs from 10 Diverse Countries Across the Globe
+            </h2>
+          </div>
         </div>
 
         <div className="flex justify-center w-full mt-8 mb-8">
@@ -167,7 +181,7 @@ export default function Home({ searchQuery }) {
                   <Image
                     src={job.CompanyInfo.companyLogo}
                     alt={`${job.Company} Logo`}
-                    width={50}
+                    width={100}
                     height={50}
                   />
                 )}
@@ -183,7 +197,7 @@ export default function Home({ searchQuery }) {
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+            className={`py-2 px-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
               currentPage === 1 ? "cursor-not-allowed bg-gray-300" : ""
             }`}
           >
@@ -197,7 +211,7 @@ export default function Home({ searchQuery }) {
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+            className={`py-2 px-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
               currentPage === totalPages ? "cursor-not-allowed bg-gray-300" : ""
             }`}
           >
