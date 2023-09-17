@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 export default function UserForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,11 +24,22 @@ export default function UserForm() {
     if (response.status === 201) {
       setName("");
       setEmail("");
+      setIsSuccess(true);
     } else {
       const errorData = await response.json();
       console.error("Error:", errorData.message);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="user-form bg-white p-8 rounded-md shadow-md max-w-md mx-auto mt-10 space-y-6">
@@ -36,6 +49,13 @@ export default function UserForm() {
       <h2 className="text-xl text-center text-gray-600">
         Stay up to date with our latest jobs!
       </h2>
+
+      {isSuccess && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+          <strong className="font-bold">Success!</strong> Email successfully
+          sent.
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="input-group">
