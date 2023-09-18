@@ -152,32 +152,34 @@ export default function Home({ searchQuery }) {
             </div>
           </div>
         </div>
-        <div className="space-y-4">
-          {currentJobs.map((job) => (
-            <div
-              key={job._id}
-              className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 max-w-x1 mx-8"
-            >
-              <Link
-                href={`/Jobs/${job._id}`}
-                className="text-blue-600 hover:text-blue-800 transition duration-300"
+        <div className="space-y-4 mb-8">
+          <div className="grid grid-cols-2 gap-4">
+            {currentJobs.map((job) => (
+              <div
+                key={job._id}
+                className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 max-w-x1 mx-8"
               >
-                {/* Render the company logo */}
-                {job.CompanyInfo && (
-                  <Image
-                    src={job.CompanyInfo.companyLogo}
-                    alt={`${job.Company} Logo`}
-                    width={100}
-                    height={50}
-                  />
-                )}
-                <h2 className="font-bold">{job.Position}</h2>
-              </Link>
-              <p>{job.Company}</p>
-              <p>{job.Location}</p>
-              {/* <p>{job.jobType}</p> */}
-            </div>
-          ))}
+                <Link
+                  href={`/Jobs/${job._id}`}
+                  className="text-blue-600 hover:text-blue-800 transition duration-300"
+                >
+                  {/* Render the company logo */}
+                  {job.CompanyInfo && (
+                    <Image
+                      src={job.CompanyInfo.companyLogo}
+                      alt={`${job.Company} Logo`}
+                      width={100}
+                      height={50}
+                    />
+                  )}
+                  <h2 className="font-bold">{job.Position}</h2>
+                </Link>
+                <p>{job.Company}</p>
+                <p>{job.Location}</p>
+                {/* <p>{job.jobType}</p> */}
+              </div>
+            ))}
+          </div>
         </div>
         <div className="flex items-center justify-center space-x-4 mt-4">
           <button
