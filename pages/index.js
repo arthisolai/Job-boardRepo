@@ -7,7 +7,6 @@ import Image from "next/image";
 
 const ContentContainer = styled.div`
   margin-top: 80px;
-  margin-bottom: 40px;
 `;
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
@@ -74,28 +73,14 @@ export default function Home({ searchQuery }) {
   return (
     <>
       <ContentContainer>
-        <div className="relative text-center font-sans">
-          {/* Image overlapping */}
-          {/* <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/landingPageImage.jpg"
-              alt="Background Image"
-              // layout="fill"
-              width={1920} // Set to the original image width
-              height={1080} // Set to the original image height
-            />
-          </div> */}
-
-          {/* Content */}
-          <div className="relative z-10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Get Global with Your Tech Career
-            </h1>
-            <h2 className="text-2xl md:text-3xl text-gray-600 mx-4 md:mx-8 lg:mx-16">
-              Find Tech Roles Offering Visa & Relocation Support, Explore 150
-              Curated Tech Jobs from 10 Diverse Countries Across the Globe
-            </h2>
-          </div>
+        <div className="text-center font-sans">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Get Global with Your Tech Career
+          </h1>
+          <h2 className="text-2xl md:text-3xl text-gray-600 mx-4 md:mx-8 lg:mx-16">
+            Find Tech Roles Offering Visa & Relocation Support, Explore 150
+            Curated Tech Jobs from 10 Diverse Countries Across the Globe
+          </h2>
         </div>
 
         <div className="flex justify-center w-full mt-8 mb-8">
@@ -167,34 +152,32 @@ export default function Home({ searchQuery }) {
             </div>
           </div>
         </div>
-        <div className="space-y-4 mb-8">
-          <div className="grid grid-cols-2 gap-4">
-            {currentJobs.map((job) => (
-              <div
-                key={job._id}
-                className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 max-w-x1 mx-8"
+        <div className="space-y-4">
+          {currentJobs.map((job) => (
+            <div
+              key={job._id}
+              className="p-4 border rounded-lg shadow-md hover:shadow-lg transition duration-300 bg-white space-y-2 max-w-x1 mx-8"
+            >
+              <Link
+                href={`/Jobs/${job._id}`}
+                className="text-blue-600 hover:text-blue-800 transition duration-300"
               >
-                <Link
-                  href={`/Jobs/${job._id}`}
-                  className="text-blue-600 hover:text-blue-800 transition duration-300"
-                >
-                  {/* Render the company logo */}
-                  {job.CompanyInfo && (
-                    <Image
-                      src={job.CompanyInfo.companyLogo}
-                      alt={`${job.Company} Logo`}
-                      width={100}
-                      height={50}
-                    />
-                  )}
-                  <h2 className="font-bold">{job.Position}</h2>
-                </Link>
-                <p>{job.Company}</p>
-                <p>{job.Location}</p>
-                {/* <p>{job.jobType}</p> */}
-              </div>
-            ))}
-          </div>
+                {/* Render the company logo */}
+                {job.CompanyInfo && (
+                  <Image
+                    src={job.CompanyInfo.companyLogo}
+                    alt={`${job.Company} Logo`}
+                    width={100}
+                    height={50}
+                  />
+                )}
+                <h2 className="font-bold">{job.Position}</h2>
+              </Link>
+              <p>{job.Company}</p>
+              <p>{job.Location}</p>
+              {/* <p>{job.jobType}</p> */}
+            </div>
+          ))}
         </div>
         <div className="flex items-center justify-center space-x-4 mt-4">
           <button

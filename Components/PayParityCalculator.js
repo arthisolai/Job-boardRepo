@@ -209,7 +209,7 @@ export default function PayParityCalculator() {
                 <input
                   id="convertedSalary"
                   type="text"
-                  className="p-2 border-2 border-red-500 rounded-md text-black"
+                  className="p-2 border-2 border-green-500 rounded-md text-black"
                   value={convertedSalary}
                   readOnly
                 />
